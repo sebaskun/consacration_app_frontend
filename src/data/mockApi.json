@@ -1,0 +1,1198 @@
+{
+  "user": {
+    "id": 1,
+    "name": "María González",
+    "email": "maria@example.com",
+    "currentDay": 15,
+    "totalDays": 33,
+    "startDate": "2024-01-15",
+    "progressPercentage": 45
+  },
+  "dailyContent": {
+    "1": {
+      "day": 1,
+      "title": "Introducción a la Consagración",
+      "description": "Comienza tu jornada hacia la consagración total. Reflexiona sobre el significado profundo de entregar tu vida completamente a Jesús a través de María.",
+      "readingTime": "10 min",
+      "mysteries": "Misterios Gozosos",
+      "mysteriesDescription": "Contempla los momentos de alegría en la vida de Jesús y María: La Anunciación, La Visitación, El Nacimiento, La Presentación, El Niño Jesús perdido y hallado en el templo.",
+      "video": {
+        "title": "Introducción a la Verdadera Devoción",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gozosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "quote": {
+        "text": "A Jesús por María",
+        "author": "San Luis de Montfort"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "2": {
+      "day": 2,
+      "title": "La Verdadera Devoción",
+      "description": "Explora los fundamentos de la verdadera devoción mariana según las enseñanzas de San Luis de Montfort.",
+      "readingTime": "12 min",
+      "mysteries": "Misterios Luminosos",
+      "mysteriesDescription": "Medita en los momentos de revelación de Jesús: El Bautismo, Las Bodas de Caná, El Anuncio del Reino, La Transfiguración, La Institución de la Eucaristía.",
+      "video": {
+        "title": "Los Fundamentos de la Devoción Mariana",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Luminosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "quote": {
+        "text": "María es el camino más seguro para llegar a Jesús",
+        "author": "San Luis de Montfort"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "3": {
+      "day": 3,
+      "title": "Los Fundamentos Espirituales",
+      "description": "Profundiza en los principios espirituales que sustentan la consagración total a María.",
+      "readingTime": "15 min",
+      "mysteries": "Misterios Dolorosos",
+      "mysteriesDescription": "Contempla la pasión de Cristo: La Oración en el Huerto, La Flagelación, La Coronación de Espinas, La Cruz a Cuestas, La Crucifixión.",
+      "video": {
+        "title": "Principios de la Vida Espiritual",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Dolorosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "quote": {
+        "text": "La humildad es la base de toda virtud",
+        "author": "San Luis de Montfort"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": false,
+        "rosaryCompleted": true
+      }
+    },
+    "4": {
+      "day": 4,
+      "title": "La Humildad de María",
+      "description": "Reflexiona sobre la profunda humildad de Nuestra Señora y cómo podemos imitarla en nuestra vida diaria.",
+      "readingTime": "12 min",
+      "mysteries": "Misterios Gloriosos",
+      "mysteriesDescription": "Celebra la victoria de Cristo: La Resurrección, La Ascensión, Pentecostés, La Asunción, La Coronación de María.",
+      "video": {
+        "title": "La Humildad como Virtud Mariana",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gloriosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "quote": {
+        "text": "María, siendo la más humilde, fue elevada a ser la Madre de Dios",
+        "author": "San Luis de Montfort"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "5": {
+      "day": 5,
+      "title": "La Pureza de María",
+      "description": "Contempla la pureza inmaculada de María y su importancia en nuestra vida espiritual.",
+      "readingTime": "14 min",
+      "mysteries": "Misterios Gozosos",
+      "mysteriesDescription": "Contempla los momentos de alegría en la vida de Jesús y María: La Anunciación, La Visitación, El Nacimiento, La Presentación, El Niño Jesús perdido y hallado en el templo.",
+      "video": {
+        "title": "La Pureza Inmaculada",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gozosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "quote": {
+        "text": "La pureza de María es un modelo para todos los cristianos",
+        "author": "San Luis de Montfort"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "6": {
+      "day": 6,
+      "title": "La Caridad de María",
+      "description": "Medita sobre el amor perfecto de María y cómo podemos crecer en caridad siguiendo su ejemplo.",
+      "readingTime": "13 min",
+      "mysteries": "Misterios Luminosos",
+      "mysteriesDescription": "Medita en los momentos de revelación de Jesús: El Bautismo, Las Bodas de Caná, El Anuncio del Reino, La Transfiguración, La Institución de la Eucaristía.",
+      "video": {
+        "title": "El Amor Perfecto de María",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Luminosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "quote": {
+        "text": "María es la Madre del Amor Hermoso",
+        "author": "San Luis de Montfort"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": false,
+        "rosaryCompleted": true
+      }
+    },
+    "7": {
+      "day": 7,
+      "title": "La Fe de María",
+      "description": "Reflexiona sobre la fe inquebrantable de María y cómo fortalecer nuestra propia fe.",
+      "readingTime": "11 min",
+      "mysteries": "Misterios Dolorosos",
+      "mysteriesDescription": "Contempla la pasión de Cristo: La Oración en el Huerto, La Flagelación, La Coronación de Espinas, La Cruz a Cuestas, La Crucifixión.",
+      "video": {
+        "title": "La Fe Inquebrantable de María",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Dolorosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "quote": {
+        "text": "Bienaventurada la que ha creído",
+        "author": "San Lucas"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "8": {
+      "day": 8,
+      "title": "La Esperanza de María",
+      "description": "Contempla la esperanza que María mantuvo durante toda su vida, especialmente en los momentos difíciles.",
+      "readingTime": "12 min",
+      "mysteries": "Misterios Gloriosos",
+      "mysteriesDescription": "Celebra la victoria de Cristo: La Resurrección, La Ascensión, Pentecostés, La Asunción, La Coronación de María.",
+      "video": {
+        "title": "La Esperanza Mariana",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gloriosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "María es la Estrella de la Esperanza",
+        "author": "San Luis de Montfort"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "9": {
+      "day": 9,
+      "title": "La Obediencia de María",
+      "description": "Medita sobre la perfecta obediencia de María a la voluntad de Dios.",
+      "readingTime": "13 min",
+      "mysteries": "Misterios Gozosos",
+      "mysteriesDescription": "Contempla los momentos de alegría en la vida de Jesús y María: La Anunciación, La Visitación, El Nacimiento, La Presentación, El Niño Jesús perdido y hallado en el templo.",
+      "video": {
+        "title": "La Obediencia Perfecta",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gozosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "Hágase en mí según tu palabra",
+        "author": "María"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "10": {
+      "day": 10,
+      "title": "La Pobreza de María",
+      "description": "Reflexiona sobre la pobreza espiritual de María y su importancia en la vida cristiana.",
+      "readingTime": "14 min",
+      "mysteries": "Misterios Luminosos",
+      "mysteriesDescription": "Medita en los momentos de revelación de Jesús: El Bautismo, Las Bodas de Caná, El Anuncio del Reino, La Transfiguración, La Institución de la Eucaristía.",
+      "video": {
+        "title": "La Pobreza Espiritual de María",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Luminosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "Bienaventurados los pobres de espíritu",
+        "author": "Jesús"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": false,
+        "rosaryCompleted": true
+      }
+    },
+    "11": {
+      "day": 11,
+      "title": "La Paciencia de María",
+      "description": "Contempla la paciencia de María durante toda su vida, especialmente en los momentos de sufrimiento.",
+      "readingTime": "12 min",
+      "mysteries": "Misterios Dolorosos",
+      "mysteriesDescription": "Contempla la pasión de Cristo: La Oración en el Huerto, La Flagelación, La Coronación de Espinas, La Cruz a Cuestas, La Crucifixión.",
+      "video": {
+        "title": "La Paciencia de María",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Dolorosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "María guardaba todas estas cosas en su corazón",
+        "author": "San Lucas"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "12": {
+      "day": 12,
+      "title": "La Mansedumbre de María",
+      "description": "Medita sobre la mansedumbre de María y cómo esta virtud nos ayuda en nuestra vida espiritual.",
+      "readingTime": "11 min",
+      "mysteries": "Misterios Gloriosos",
+      "mysteriesDescription": "Celebra la victoria de Cristo: La Resurrección, La Ascensión, Pentecostés, La Asunción, La Coronación de María.",
+      "video": {
+        "title": "La Mansedumbre Mariana",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gloriosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "Aprended de mí que soy manso y humilde de corazón",
+        "author": "Jesús"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "13": {
+      "day": 13,
+      "title": "La Templanza de María",
+      "description": "Reflexiona sobre la templanza de María y su importancia en el control de nuestras pasiones.",
+      "readingTime": "13 min",
+      "mysteries": "Misterios Gozosos",
+      "mysteriesDescription": "Contempla los momentos de alegría en la vida de Jesús y María: La Anunciación, La Visitación, El Nacimiento, La Presentación, El Niño Jesús perdido y hallado en el templo.",
+      "video": {
+        "title": "La Templanza como Virtud Mariana",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gozosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "La templanza es fruto del Espíritu Santo",
+        "author": "San Pablo"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "14": {
+      "day": 14,
+      "title": "La Diligencia de María",
+      "description": "Contempla la diligencia de María en el servicio a Dios y a los demás.",
+      "readingTime": "12 min",
+      "mysteries": "Misterios Luminosos",
+      "mysteriesDescription": "Medita en los momentos de revelación de Jesús: El Bautismo, Las Bodas de Caná, El Anuncio del Reino, La Transfiguración, La Institución de la Eucaristía.",
+      "video": {
+        "title": "La Diligencia en el Servicio",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Luminosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "María se levantó y fue con prontitud",
+        "author": "San Lucas"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "15": {
+      "day": 15,
+      "title": "La Humildad de María",
+      "description": "Reflexiona sobre la profunda humildad de Nuestra Señora y cómo podemos imitarla en nuestra vida diaria. María, siendo la más humilde de todas las criaturas, fue elevada a ser la Madre de Dios.",
+      "readingTime": "15 min",
+      "mysteries": "Misterios Gozosos",
+      "mysteriesDescription": "Contempla los momentos de alegría en la vida de Jesús y María: La Anunciación, La Visitación, El Nacimiento, La Presentación, El Niño Jesús perdido y hallado en el templo.",
+      "video": {
+        "title": "La Devoción Mariana en San Luis de Montfort",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gozosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "El Rosario es el arma más poderosa para tocar el Corazón de Jesús, nuestro Redentor, que tanto ama a su Madre.",
+        "author": "San Pío de Pietrelcina"
+      },
+      "tasks": {
+        "meditationCompleted": false,
+        "videoCompleted": false,
+        "rosaryCompleted": false
+      }
+    },
+    "16": {
+      "day": 16,
+      "title": "La Pureza de María",
+      "description": "Contempla la pureza inmaculada de María y su importancia en nuestra vida espiritual.",
+      "readingTime": "14 min",
+      "mysteries": "Misterios Gozosos",
+      "mysteriesDescription": "Contempla los momentos de alegría en la vida de Jesús y María: La Anunciación, La Visitación, El Nacimiento, La Presentación, El Niño Jesús perdido y hallado en el templo.",
+      "video": {
+        "title": "La Pureza Inmaculada",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gozosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "La pureza de María es un modelo para todos los cristianos",
+        "author": "San Luis de Montfort"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "17": {
+      "day": 17,
+      "title": "La Caridad de María",
+      "description": "Medita sobre el amor perfecto de María y cómo podemos crecer en caridad siguiendo su ejemplo.",
+      "readingTime": "13 min",
+      "mysteries": "Misterios Luminosos",
+      "mysteriesDescription": "Medita en los momentos de revelación de Jesús: El Bautismo, Las Bodas de Caná, El Anuncio del Reino, La Transfiguración, La Institución de la Eucaristía.",
+      "video": {
+        "title": "El Amor Perfecto de María",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Luminosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "María es la Madre del Amor Hermoso",
+        "author": "San Luis de Montfort"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": false,
+        "rosaryCompleted": true
+      }
+    },
+    "18": {
+      "day": 18,
+      "title": "La Fe de María",
+      "description": "Reflexiona sobre la fe inquebrantable de María y cómo fortalecer nuestra propia fe.",
+      "readingTime": "11 min",
+      "mysteries": "Misterios Dolorosos",
+      "mysteriesDescription": "Contempla la pasión de Cristo: La Oración en el Huerto, La Flagelación, La Coronación de Espinas, La Cruz a Cuestas, La Crucifixión.",
+      "video": {
+        "title": "La Fe Inquebrantable de María",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Dolorosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "Bienaventurada la que ha creído",
+        "author": "San Lucas"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "19": {
+      "day": 19,
+      "title": "La Esperanza de María",
+      "description": "Contempla la esperanza que María mantuvo durante toda su vida, especialmente en los momentos difíciles.",
+      "readingTime": "12 min",
+      "mysteries": "Misterios Gloriosos",
+      "mysteriesDescription": "Celebra la victoria de Cristo: La Resurrección, La Ascensión, Pentecostés, La Asunción, La Coronación de María.",
+      "video": {
+        "title": "La Esperanza Mariana",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gloriosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "María es la Estrella de la Esperanza",
+        "author": "San Luis de Montfort"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "20": {
+      "day": 20,
+      "title": "La Obediencia de María",
+      "description": "Medita sobre la perfecta obediencia de María a la voluntad de Dios.",
+      "readingTime": "13 min",
+      "mysteries": "Misterios Gozosos",
+      "mysteriesDescription": "Contempla los momentos de alegría en la vida de Jesús y María: La Anunciación, La Visitación, El Nacimiento, La Presentación, El Niño Jesús perdido y hallado en el templo.",
+      "video": {
+        "title": "La Obediencia Perfecta",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gozosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "Hágase en mí según tu palabra",
+        "author": "María"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "21": {
+      "day": 21,
+      "title": "La Pobreza de María",
+      "description": "Reflexiona sobre la pobreza espiritual de María y su importancia en la vida cristiana.",
+      "readingTime": "14 min",
+      "mysteries": "Misterios Luminosos",
+      "mysteriesDescription": "Medita en los momentos de revelación de Jesús: El Bautismo, Las Bodas de Caná, El Anuncio del Reino, La Transfiguración, La Institución de la Eucaristía.",
+      "video": {
+        "title": "La Pobreza Espiritual de María",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Luminosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "Bienaventurados los pobres de espíritu",
+        "author": "Jesús"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": false,
+        "rosaryCompleted": true
+      }
+    },
+    "22": {
+      "day": 22,
+      "title": "La Paciencia de María",
+      "description": "Contempla la paciencia de María durante toda su vida, especialmente en los momentos de sufrimiento.",
+      "readingTime": "12 min",
+      "mysteries": "Misterios Dolorosos",
+      "mysteriesDescription": "Contempla la pasión de Cristo: La Oración en el Huerto, La Flagelación, La Coronación de Espinas, La Cruz a Cuestas, La Crucifixión.",
+      "video": {
+        "title": "La Paciencia de María",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Dolorosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "María guardaba todas estas cosas en su corazón",
+        "author": "San Lucas"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "23": {
+      "day": 23,
+      "title": "La Mansedumbre de María",
+      "description": "Medita sobre la mansedumbre de María y cómo esta virtud nos ayuda en nuestra vida espiritual.",
+      "readingTime": "11 min",
+      "mysteries": "Misterios Gloriosos",
+      "mysteriesDescription": "Celebra la victoria de Cristo: La Resurrección, La Ascensión, Pentecostés, La Asunción, La Coronación de María.",
+      "video": {
+        "title": "La Mansedumbre Mariana",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gloriosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "Aprended de mí que soy manso y humilde de corazón",
+        "author": "Jesús"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "24": {
+      "day": 24,
+      "title": "La Templanza de María",
+      "description": "Reflexiona sobre la templanza de María y su importancia en el control de nuestras pasiones.",
+      "readingTime": "13 min",
+      "mysteries": "Misterios Gozosos",
+      "mysteriesDescription": "Contempla los momentos de alegría en la vida de Jesús y María: La Anunciación, La Visitación, El Nacimiento, La Presentación, El Niño Jesús perdido y hallado en el templo.",
+      "video": {
+        "title": "La Templanza como Virtud Mariana",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gozosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "La templanza es fruto del Espíritu Santo",
+        "author": "San Pablo"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "25": {
+      "day": 25,
+      "title": "La Diligencia de María",
+      "description": "Contempla la diligencia de María en el servicio a Dios y a los demás.",
+      "readingTime": "12 min",
+      "mysteries": "Misterios Luminosos",
+      "mysteriesDescription": "Medita en los momentos de revelación de Jesús: El Bautismo, Las Bodas de Caná, El Anuncio del Reino, La Transfiguración, La Institución de la Eucaristía.",
+      "video": {
+        "title": "La Diligencia en el Servicio",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Luminosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "María se levantó y fue con prontitud",
+        "author": "San Lucas"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "26": {
+      "day": 26,
+      "title": "La Humildad de María",
+      "description": "Reflexiona sobre la profunda humildad de Nuestra Señora y cómo podemos imitarla en nuestra vida diaria. María, siendo la más humilde de todas las criaturas, fue elevada a ser la Madre de Dios.",
+      "readingTime": "15 min",
+      "mysteries": "Misterios Gozosos",
+      "mysteriesDescription": "Contempla los momentos de alegría en la vida de Jesús y María: La Anunciación, La Visitación, El Nacimiento, La Presentación, El Niño Jesús perdido y hallado en el templo.",
+      "video": {
+        "title": "La Devoción Mariana en San Luis de Montfort",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gozosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "El Rosario es el arma más poderosa para tocar el Corazón de Jesús, nuestro Redentor, que tanto ama a su Madre.",
+        "author": "San Pío de Pietrelcina"
+      },
+      "tasks": {
+        "meditationCompleted": false,
+        "videoCompleted": false,
+        "rosaryCompleted": false
+      }
+    },
+    "27": {
+      "day": 27,
+      "title": "La Pureza de María",
+      "description": "Contempla la pureza inmaculada de María y su importancia en nuestra vida espiritual.",
+      "readingTime": "14 min",
+      "mysteries": "Misterios Gozosos",
+      "mysteriesDescription": "Contempla los momentos de alegría en la vida de Jesús y María: La Anunciación, La Visitación, El Nacimiento, La Presentación, El Niño Jesús perdido y hallado en el templo.",
+      "video": {
+        "title": "La Pureza Inmaculada",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gozosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "La pureza de María es un modelo para todos los cristianos",
+        "author": "San Luis de Montfort"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "28": {
+      "day": 28,
+      "title": "La Caridad de María",
+      "description": "Medita sobre el amor perfecto de María y cómo podemos crecer en caridad siguiendo su ejemplo.",
+      "readingTime": "13 min",
+      "mysteries": "Misterios Luminosos",
+      "mysteriesDescription": "Medita en los momentos de revelación de Jesús: El Bautismo, Las Bodas de Caná, El Anuncio del Reino, La Transfiguración, La Institución de la Eucaristía.",
+      "video": {
+        "title": "El Amor Perfecto de María",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Luminosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "María es la Madre del Amor Hermoso",
+        "author": "San Luis de Montfort"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": false,
+        "rosaryCompleted": true
+      }
+    },
+    "29": {
+      "day": 29,
+      "title": "La Fe de María",
+      "description": "Reflexiona sobre la fe inquebrantable de María y cómo fortalecer nuestra propia fe.",
+      "readingTime": "11 min",
+      "mysteries": "Misterios Dolorosos",
+      "mysteriesDescription": "Contempla la pasión de Cristo: La Oración en el Huerto, La Flagelación, La Coronación de Espinas, La Cruz a Cuestas, La Crucifixión.",
+      "video": {
+        "title": "La Fe Inquebrantable de María",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Dolorosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "Bienaventurada la que ha creído",
+        "author": "San Lucas"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "30": {
+      "day": 30,
+      "title": "La Esperanza de María",
+      "description": "Contempla la esperanza que María mantuvo durante toda su vida, especialmente en los momentos difíciles.",
+      "readingTime": "12 min",
+      "mysteries": "Misterios Gloriosos",
+      "mysteriesDescription": "Celebra la victoria de Cristo: La Resurrección, La Ascensión, Pentecostés, La Asunción, La Coronación de María.",
+      "video": {
+        "title": "La Esperanza Mariana",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gloriosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "María es la Estrella de la Esperanza",
+        "author": "San Luis de Montfort"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "31": {
+      "day": 31,
+      "title": "La Obediencia de María",
+      "description": "Medita sobre la perfecta obediencia de María a la voluntad de Dios.",
+      "readingTime": "13 min",
+      "mysteries": "Misterios Gozosos",
+      "mysteriesDescription": "Contempla los momentos de alegría en la vida de Jesús y María: La Anunciación, La Visitación, El Nacimiento, La Presentación, El Niño Jesús perdido y hallado en el templo.",
+      "video": {
+        "title": "La Obediencia Perfecta",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gozosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "Hágase en mí según tu palabra",
+        "author": "María"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": true,
+        "rosaryCompleted": true
+      }
+    },
+    "32": {
+      "day": 32,
+      "title": "La Pobreza de María",
+      "description": "Reflexiona sobre la pobreza espiritual de María y su importancia en la vida cristiana.",
+      "readingTime": "14 min",
+      "mysteries": "Misterios Luminosos",
+      "mysteriesDescription": "Medita en los momentos de revelación de Jesús: El Bautismo, Las Bodas de Caná, El Anuncio del Reino, La Transfiguración, La Institución de la Eucaristía.",
+      "video": {
+        "title": "La Pobreza Espiritual de María",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Luminosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "Bienaventurados los pobres de espíritu",
+        "author": "Jesús"
+      },
+      "tasks": {
+        "meditationCompleted": true,
+        "videoCompleted": false,
+        "rosaryCompleted": true
+      }
+    },
+    "33": {
+      "day": 33,
+      "title": "La Consagración Final",
+      "description": "Celebra la culminación de tu camino de consagración total a Jesús por María.",
+      "readingTime": "15 min",
+      "mysteries": "Misterios Gloriosos",
+      "mysteriesDescription": "Celebra la victoria de Cristo: La Resurrección, La Ascensión, Pentecostés, La Asunción, La Coronación de María.",
+      "video": {
+        "title": "Consagración Final",
+        "youtubeUrl": "https://www.youtube.com/embed/dC7LQrCuvvY?start=915"
+      },
+      "rosaryVideo": {
+        "title": "Video Guía - Misterios Gloriosos",
+        "youtubeUrl": "https://www.youtube.com/embed/0UeghdiwMNc"
+      },
+      "meditationPdfUrl": "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=sharing",
+      "quote": {
+        "text": "El Rosario es el arma más poderosa para tocar el Corazón de Jesús, nuestro Redentor, que tanto ama a su Madre.",
+        "author": "San Pío de Pietrelcina"
+      },
+      "tasks": {
+        "meditationCompleted": false,
+        "videoCompleted": false,
+        "rosaryCompleted": false
+      }
+    }
+  },
+  "calendar": {
+    "days": [
+      {
+        "day": 1,
+        "title": "Introducción a la Consagración",
+        "completed": true,
+        "tasks": {
+          "meditationCompleted": true,
+          "videoCompleted": true,
+          "rosaryCompleted": true
+        }
+      },
+      {
+        "day": 2,
+        "title": "La Verdadera Devoción",
+        "completed": true,
+        "tasks": {
+          "meditationCompleted": true,
+          "videoCompleted": true,
+          "rosaryCompleted": true
+        }
+      },
+      {
+        "day": 3,
+        "title": "Los Fundamentos Espirituales",
+        "completed": true,
+        "tasks": {
+          "meditationCompleted": true,
+          "videoCompleted": false,
+          "rosaryCompleted": true
+        }
+      },
+      {
+        "day": 4,
+        "title": "La Humildad de María",
+        "completed": true,
+        "tasks": {
+          "meditationCompleted": true,
+          "videoCompleted": true,
+          "rosaryCompleted": true
+        }
+      },
+      {
+        "day": 5,
+        "title": "La Pureza de María",
+        "completed": true,
+        "tasks": {
+          "meditationCompleted": true,
+          "videoCompleted": true,
+          "rosaryCompleted": true
+        }
+      },
+      {
+        "day": 6,
+        "title": "La Caridad de María",
+        "completed": true,
+        "tasks": {
+          "meditationCompleted": true,
+          "videoCompleted": false,
+          "rosaryCompleted": true
+        }
+      },
+      {
+        "day": 7,
+        "title": "La Fe de María",
+        "completed": true,
+        "tasks": {
+          "meditationCompleted": true,
+          "videoCompleted": true,
+          "rosaryCompleted": true
+        }
+      },
+      {
+        "day": 8,
+        "title": "La Esperanza de María",
+        "completed": true,
+        "tasks": {
+          "meditationCompleted": true,
+          "videoCompleted": true,
+          "rosaryCompleted": true
+        }
+      },
+      {
+        "day": 9,
+        "title": "La Obediencia de María",
+        "completed": true,
+        "tasks": {
+          "meditationCompleted": true,
+          "videoCompleted": true,
+          "rosaryCompleted": true
+        }
+      },
+      {
+        "day": 10,
+        "title": "La Pobreza de María",
+        "completed": true,
+        "tasks": {
+          "meditationCompleted": true,
+          "videoCompleted": false,
+          "rosaryCompleted": true
+        }
+      },
+      {
+        "day": 11,
+        "title": "La Paciencia de María",
+        "completed": true,
+        "tasks": {
+          "meditationCompleted": true,
+          "videoCompleted": true,
+          "rosaryCompleted": true
+        }
+      },
+      {
+        "day": 12,
+        "title": "La Mansedumbre de María",
+        "completed": true,
+        "tasks": {
+          "meditationCompleted": true,
+          "videoCompleted": true,
+          "rosaryCompleted": true
+        }
+      },
+      {
+        "day": 13,
+        "title": "La Templanza de María",
+        "completed": true,
+        "tasks": {
+          "meditationCompleted": true,
+          "videoCompleted": true,
+          "rosaryCompleted": true
+        }
+      },
+      {
+        "day": 14,
+        "title": "La Diligencia de María",
+        "completed": true,
+        "tasks": {
+          "meditationCompleted": true,
+          "videoCompleted": true,
+          "rosaryCompleted": true
+        }
+      },
+      {
+        "day": 15,
+        "title": "La Humildad de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 16,
+        "title": "La Pureza de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 17,
+        "title": "La Caridad de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 18,
+        "title": "La Fe de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 19,
+        "title": "La Esperanza de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 20,
+        "title": "La Obediencia de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 21,
+        "title": "La Pobreza de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 22,
+        "title": "La Paciencia de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 23,
+        "title": "La Mansedumbre de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 24,
+        "title": "La Templanza de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 25,
+        "title": "La Diligencia de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 26,
+        "title": "La Humildad de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 27,
+        "title": "La Pureza de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 28,
+        "title": "La Caridad de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 29,
+        "title": "La Fe de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 30,
+        "title": "La Esperanza de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 31,
+        "title": "La Obediencia de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 32,
+        "title": "La Pobreza de María",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      },
+      {
+        "day": 33,
+        "title": "La Consagración Final",
+        "completed": false,
+        "tasks": {
+          "meditationCompleted": false,
+          "videoCompleted": false,
+          "rosaryCompleted": false
+        }
+      }
+    ]
+  }
+}
