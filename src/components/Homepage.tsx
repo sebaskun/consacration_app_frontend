@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { Heart, BookOpen, Play, Star, Crown, Shield, Info } from "lucide-react";
+import { useState } from "react";
+import { Heart, BookOpen, Play, Star, Crown, Shield } from "lucide-react";
 import imagenBackground from "../assets/virgen_y_jesus_eucaristia.png";
 import image2Background from "../assets/virgen_maria_san_jose.png";
 import AboutModal from "./AboutModal";
@@ -260,13 +260,13 @@ export default function HomePage() {
               </div>
               <div className="flex flex-col gap-4 min-[400px]:flex-row">
                 <button
-                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-yellow-600 hover:bg-yellow-50 px-8 py-4 text-lg font-semibold shadow-lg"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-yellow-600 hover:bg-yellow-50 px-8 py-4 text-lg font-semibold shadow-lg"
                   onClick={() => (window.location.href = "/auth")}
                 >
                   🌹 "Ad Jesum per Mariam" - Comenzar Ahora
                 </button>
                 <button
-                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-white text-white hover:bg-white hover:text-yellow-600 px-8 py-4 text-lg bg-transparent"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-white text-white hover:bg-white hover:text-yellow-600 px-8 py-4 text-lg bg-transparent"
                   onClick={() =>
                     window.open(
                       "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=drive_link",
