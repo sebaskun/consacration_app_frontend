@@ -5,78 +5,15 @@ import {
   Heart,
   BookOpen,
   Play,
-  Calendar,
-  Crown,
-  User,
-  Settings,
-  Home,
   CheckCircle,
   Clock,
   Award,
-  TrendingUp,
-  Bell,
-  Check,
-  X,
-  Menu,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import Notification from "./Notification";
 import { useDashboard, useUpdateProgress } from "../services/userService";
 
-interface DayProgress {
-  day: number;
-  rosary_completed: boolean;
-  meditation_completed: boolean;
-  video_completed: boolean;
-  total_completed: number;
-}
-
-interface DailyContent {
-  id: string;
-  day: number;
-  title: string;
-  description: string;
-  readingTime: string;
-  mysteries: string;
-  mysteriesDescription: string;
-  video: {
-    title: string;
-    youtubeUrl: string;
-  };
-  rosaryVideo: {
-    title: string;
-    youtubeUrl: string;
-  };
-  quote: {
-    text: string;
-    author: string;
-  };
-  tasks: {
-    meditationCompleted: boolean;
-    videoCompleted: boolean;
-    rosaryCompleted: boolean;
-  };
-  meditationPdfUrl: string;
-}
-
-interface UserData {
-  id: string;
-  name: string;
-  email: string;
-  currentDay: number;
-  totalDays: number;
-  startDate: string;
-  progressPercentage: number;
-}
-
-interface DashboardData {
-  user: UserData;
-  available_day: number;
-  progress: DayProgress[];
-  daily_content: DailyContent;
-  next_available_time: string | null;
-}
 
 interface DashboardProps {
   setUserName: (name: string) => void;
