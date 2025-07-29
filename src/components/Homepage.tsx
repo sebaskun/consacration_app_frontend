@@ -1,16 +1,26 @@
 "use client";
 
-import { Heart, BookOpen, Play, Star, Crown, Shield } from "lucide-react";
+import React, { useState } from "react";
+import { Heart, BookOpen, Play, Star, Crown, Shield, Info } from "lucide-react";
 import imagenBackground from "../assets/virgen_y_jesus_eucaristia.png";
+import image2Background from "../assets/virgen_maria_san_jose.png";
+import AboutModal from "./AboutModal";
+import PrivacyPolicyModal from "./PrivacyPolicyModal";
 
 export default function HomePage() {
+  const [showAbout, setShowAbout] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-white">
       {/* Header */}
       <header className="px-4 lg:px-6 h-16 flex items-center border-b bg-white/80 backdrop-blur-sm">
         <a href="/" className="flex items-center space-x-2">
           <Crown className="h-8 w-8 text-yellow-600" />
-          <span className="text-xl font-bold text-gray-900">Totus Tuus</span>
+          <div>
+            <span className="text-xl font-bold text-gray-900">Totus Tuus</span>
+            <p className="text-xs text-gray-500">La Milicia de la Inmaculada</p>
+          </div>
         </a>
         <nav className="ml-auto flex gap-6">
           <a
@@ -223,7 +233,7 @@ export default function HomePage() {
               </div>
               <div className="mx-auto">
                 <img
-                  src={imagenBackground}
+                  src={image2Background}
                   width="300"
                   height="400"
                   alt="Interfaz de aplicación móvil mostrando meditación diaria"
@@ -255,7 +265,15 @@ export default function HomePage() {
                 >
                   🌹 "Ad Jesum per Mariam" - Comenzar Ahora
                 </button>
-                <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-white text-white hover:bg-white hover:text-yellow-600 px-8 py-4 text-lg bg-transparent">
+                <button
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-white text-white hover:bg-white hover:text-yellow-600 px-8 py-4 text-lg bg-transparent"
+                  onClick={() =>
+                    window.open(
+                      "https://drive.google.com/file/d/1o687WDATAebWTfcVvM5qo1Q0Qh3WP4aR/view?usp=drive_link",
+                      "_blank"
+                    )
+                  }
+                >
                   Descargar Meditación de Muestra
                 </button>
               </div>
@@ -272,30 +290,28 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-white">
         <p className="text-xs text-gray-500">
-          © 2024 Consagración Totus Tuus. Difundiendo la devoción a Jesús por
+          © 2025 Consagración Totus Tuus. Difundiendo la devoción a Jesús por
           María.
         </p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <a
-            href="/privacidad"
+          <button
+            onClick={() => setShowPrivacy(true)}
             className="text-xs hover:underline underline-offset-4 text-gray-500"
           >
             Política de Privacidad
-          </a>
-          <a
-            href="/terminos"
+          </button>
+          <button
+            onClick={() => setShowAbout(true)}
             className="text-xs hover:underline underline-offset-4 text-gray-500"
           >
-            Términos de Servicio
-          </a>
-          <a
-            href="/contacto"
-            className="text-xs hover:underline underline-offset-4 text-gray-500"
-          >
-            Contacto
-          </a>
+            Acerca de
+          </button>
         </nav>
       </footer>
+
+      {/* Modals */}
+      <AboutModal isOpen={showAbout} onClose={() => setShowAbout(false)} />
+      <PrivacyPolicyModal isOpen={showPrivacy} onClose={() => setShowPrivacy(false)} />
     </div>
   );
 }

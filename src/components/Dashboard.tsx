@@ -20,15 +20,20 @@ import {
   Menu,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+import Notification from "./Notification";
+import { useDashboard, useUpdateProgress } from "../services/userService";
 
 interface DayProgress {
   day: number;
-  rosaryCompleted: boolean;
-  meditationCompleted: boolean;
-  videoCompleted: boolean;
+  rosary_completed: boolean;
+  meditation_completed: boolean;
+  video_completed: boolean;
+  total_completed: number;
 }
 
 interface DailyContent {
+  id: string;
   day: number;
   title: string;
   description: string;
@@ -56,7 +61,7 @@ interface DailyContent {
 }
 
 interface UserData {
-  id: number;
+  id: string;
   name: string;
   email: string;
   currentDay: number;
@@ -65,68 +70,229 @@ interface UserData {
   progressPercentage: number;
 }
 
-export default function Dashboard() {
+interface DashboardData {
+  user: UserData;
+  available_day: number;
+  progress: DayProgress[];
+  daily_content: DailyContent;
+  next_available_time: string | null;
+}
+
+interface DashboardProps {
+  setUserName: (name: string) => void;
+}
+
+export default function Dashboard({ setUserName }: DashboardProps) {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const [dailyContent, setDailyContent] = useState<DailyContent | null>(null);
-  const [progress, setProgress] = useState<DayProgress[]>([]);
   const [showRosaryVideo, setShowRosaryVideo] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [timeRemaining, setTimeRemaining] = useState<string>("");
+  const [pendingUpdates, setPendingUpdates] = useState<{
+    [key: string]: number;
+  }>({});
+  const [notification, setNotification] = useState<{
+    message: string;
+    type: "success" | "error";
+    isVisible: boolean;
+  }>({
+    message: "",
+    type: "success",
+    isVisible: false,
+  });
 
+  // React Query hooks
+  const queryClient = useQueryClient();
+  const { data: dashboardData, isLoading: loading, error } = useDashboard();
+  const updateProgressMutation = useUpdateProgress();
+
+  // Set user name when dashboard data is loaded
   useEffect(() => {
-    // Simulate API call
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/src/data/mockApi.json");
-        const data = await response.json();
+    if (dashboardData?.user?.name) {
+      setUserName(dashboardData.user.name);
+    }
+  }, [dashboardData?.user?.name, setUserName]);
 
-        setUserData(data.user);
-        setDailyContent(data.dailyContent[data.user.currentDay]);
+  // Handle authentication errors
+  useEffect(() => {
+    if (error) {
+      console.error("Error fetching dashboard data:", error);
+      navigate("/auth");
+    }
+  }, [error, navigate]);
 
-        // Initialize progress from API data
-        const initialProgress = Array.from({ length: 33 }, (_, i) => ({
-          day: i + 1,
-          rosaryCompleted: false,
-          meditationCompleted: false,
-          videoCompleted: false,
-        }));
-        setProgress(initialProgress);
+  // Countdown timer for next available day
+  useEffect(() => {
+    // Only show timer if:
+    // 1. There is a next_available_time
+    // 2. User has completed all tasks for current day
+    // 3. Next available time is in the future
+    if (!dashboardData?.next_available_time || !dashboardData?.daily_content) {
+      setTimeRemaining("");
+      return;
+    }
 
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
+    const currentTasks = dashboardData.daily_content.tasks;
+    const allTasksCompleted = currentTasks.meditationCompleted && 
+                             currentTasks.videoCompleted && 
+                             currentTasks.rosaryCompleted;
+    
+    if (!allTasksCompleted) {
+      setTimeRemaining("");
+      return;
+    }
+
+    const updateCountdown = () => {
+      const now = new Date();
+      const nextAvailable = new Date(dashboardData.next_available_time!);
+      const diff = nextAvailable.getTime() - now.getTime();
+
+      if (diff <= 0) {
+        setTimeRemaining("");
+        // Refresh data when countdown ends to unlock next day
+        queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+        return;
       }
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      setTimeRemaining(
+        `${hours.toString().padStart(2, "0")}:${minutes
+          .toString()
+          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`
+      );
     };
 
-    fetchData();
-  }, []);
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
 
-  const toggleTask = (day: number, task: keyof Omit<DayProgress, "day">) => {
-    setProgress((prev) =>
-      prev.map((p) => (p.day === day ? { ...p, [task]: !p[task] } : p))
-    );
+    return () => clearInterval(interval);
+  }, [dashboardData?.next_available_time, dashboardData?.daily_content, queryClient]);
+
+  // Cleanup pending updates on unmount
+  useEffect(() => {
+    return () => {
+      Object.values(pendingUpdates).forEach((timeoutId) => {
+        clearTimeout(timeoutId);
+      });
+    };
+  }, [pendingUpdates]);
+
+  const showNotification = (message: string, type: "success" | "error") => {
+    setNotification({
+      message,
+      type,
+      isVisible: true,
+    });
   };
 
-  const getDayProgress = (day: DayProgress) => {
+  const hideNotification = () => {
+    setNotification((prev) => ({ ...prev, isVisible: false }));
+  };
+
+  const debouncedUpdateProgress = async (
+    day: number,
+    task: string,
+    completed: boolean
+  ) => {
+    if (!dashboardData) return;
+
+    try {
+      // Get current task states
+      const currentTasks = dashboardData.daily_content.tasks;
+      const newTasks = {
+        meditation_completed:
+          task === "meditationCompleted"
+            ? completed
+            : currentTasks.meditationCompleted,
+        video_completed:
+          task === "videoCompleted" ? completed : currentTasks.videoCompleted,
+        rosary_completed:
+          task === "rosaryCompleted" ? completed : currentTasks.rosaryCompleted,
+      };
+
+      await updateProgressMutation.mutateAsync({
+        day: day,
+        ...newTasks,
+      });
+
+      // Check if all tasks are completed for the day
+      const allTasksCompleted =
+        newTasks.meditation_completed &&
+        newTasks.video_completed &&
+        newTasks.rosary_completed;
+
+      if (allTasksCompleted && completed) {
+        showNotification(
+          "¡Felicitaciones! Has completado el día " +
+            day +
+            ". El siguiente día estará disponible a las 12:00 AM.",
+          "success"
+        );
+        // Invalidate dashboard query to refresh data
+        setTimeout(() => {
+          queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+        }, 2000);
+      } else {
+        showNotification("Progreso guardado exitosamente", "success");
+      }
+    } catch (error: any) {
+      console.error("Error updating progress:", error);
+      if (error.message?.includes("429")) {
+        showNotification(
+          "Demasiadas operaciones. Por favor, intenta de nuevo en 5 minutos.",
+          "error"
+        );
+      } else {
+        showNotification("Error al guardar el progreso", "error");
+      }
+    }
+  };
+
+  const toggleTask = (day: number, task: string) => {
+    if (!dashboardData) return;
+
+    // Only allow toggling for the available day
+    if (day !== dashboardData.available_day) return;
+
+    // Cancel any pending update for this task
+    const updateKey = `${day}-${task}`;
+    if (pendingUpdates[updateKey]) {
+      clearTimeout(pendingUpdates[updateKey]);
+    }
+
+    // Get the new state for this task
+    const newCompleted =
+      !dashboardData.daily_content.tasks[
+        task as keyof typeof dashboardData.daily_content.tasks
+      ];
+
+    // Schedule the backend update
+    const timeoutId = setTimeout(() => {
+      debouncedUpdateProgress(day, task, newCompleted);
+      setPendingUpdates((prev) => {
+        const newUpdates = { ...prev };
+        delete newUpdates[updateKey];
+        return newUpdates;
+      });
+    }, 500);
+
+    setPendingUpdates((prev) => ({
+      ...prev,
+      [updateKey]: timeoutId,
+    }));
+  };
+
+  const getDayProgress = (day: any) => {
     const tasks = [
-      day.rosaryCompleted,
-      day.meditationCompleted,
-      day.videoCompleted,
+      day.rosary_completed,
+      day.meditation_completed,
+      day.video_completed,
     ];
     return tasks.filter(Boolean).length;
   };
 
-  const totalProgress = progress.reduce(
-    (sum, day) => sum + getDayProgress(day),
-    0
-  );
-  const maxProgress = progress.length * 3;
-  const overallProgressPercentage = Math.round(
-    (totalProgress / maxProgress) * 100
-  );
-
-  if (loading || !userData || !dailyContent) {
+  if (loading || !dashboardData) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
@@ -137,38 +303,91 @@ export default function Dashboard() {
     );
   }
 
+  const { user, available_day, progress, daily_content } = dashboardData;
+  console.log("user", user);
+
+  // Check if daily_content exists
+  if (!daily_content) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <p className="text-gray-600">
+            No hay contenido disponible para el día actual.
+          </p>
+        </div>
+      </div>
+    );
+  }
+  const totalProgress = progress.reduce(
+    (sum, day) => sum + getDayProgress(day),
+    0
+  );
+  const maxProgress = progress.length * 3;
+  const overallProgressPercentage = Math.round(
+    (totalProgress / maxProgress) * 100
+  );
+
+  console.log("available_day", available_day);
+  console.log("user.totalDays", user.totalDays);
+
   return (
     <>
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        isVisible={notification.isVisible}
+        onClose={hideNotification}
+        duration={notification.type === "success" ? 3000 : 5000}
+      />
       {/* Header */}
       <header className="bg-white border-b border-yellow-200 px-4 sm:px-6 py-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
-              ¡Buen día, {userData.name}!
+              ¡Buen día, {user.name}!
             </h1>
             <p className="text-sm sm:text-base text-gray-600">
               Continuemos tu jornada hacia la consagración
             </p>
           </div>
-          <div className="flex items-center space-x-2 sm:space-x-4">
-            <button className="relative p-2 text-gray-400 hover:text-yellow-600 transition-colors">
-              <Bell className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="absolute top-0 right-0 w-2 h-2 bg-yellow-500 rounded-full"></span>
-            </button>
-            <div className="text-right">
-              <p className="text-xs sm:text-sm font-medium text-gray-900">
-                Día {userData.currentDay}
-              </p>
-              <p className="text-xs text-gray-500">
-                {userData.totalDays - userData.currentDay} días restantes
-              </p>
-            </div>
+          <div className="text-right">
+            <p className="text-xs sm:text-sm font-medium text-gray-900">
+              Día {available_day}
+            </p>
+            <p className="text-xs text-gray-500">
+              {33 - available_day} días restantes
+            </p>
           </div>
         </div>
       </header>
 
+      {/* Countdown Timer */}
+      {timeRemaining && (
+        <div className="bg-blue-50 border-b border-blue-200 px-4 py-3">
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-2">
+              <Clock className="w-5 h-5 text-blue-600 mr-2" />
+              <p className="text-sm text-blue-800 font-medium">
+                ¡Felicitaciones! Has completado el día {available_day}
+              </p>
+            </div>
+            <p className="text-xs text-blue-700 mb-2">
+              El día {available_day + 1} estará disponible a las 12:00 AM
+            </p>
+            <div className="bg-blue-100 rounded-lg p-3 inline-block">
+              <p className="text-sm text-blue-800 font-medium mb-1">
+                Tiempo restante:
+              </p>
+              <p className="text-2xl font-bold text-blue-600 font-mono">
+                {timeRemaining}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Dashboard Content */}
-      <main className="p-4 sm:p-6">
+      <main className="p-4 sm:p-6 bg-slate-100">
         {/* Progress Bar */}
         <div className="bg-white rounded-xl shadow-sm border border-yellow-100 p-4 sm:p-6 mb-6 sm:mb-8">
           <div className="flex items-center justify-between mb-4">
@@ -180,21 +399,21 @@ export default function Dashboard() {
           <div className="space-y-3">
             <div className="flex justify-between text-xs sm:text-sm">
               <span className="text-gray-600">
-                Día {userData.currentDay} de {userData.totalDays}
+                Día {available_day} de {user.totalDays}
               </span>
               <span className="font-medium text-yellow-700">
-                {userData.progressPercentage}%
+                {overallProgressPercentage}%
               </span>
             </div>
             <div className="w-full bg-yellow-100 rounded-full h-2 sm:h-3">
               <div
                 className="bg-gradient-to-r from-yellow-500 to-yellow-600 h-2 sm:h-3 rounded-full transition-all duration-500 ease-out"
-                style={{ width: `${userData.progressPercentage}%` }}
+                style={{ width: `${overallProgressPercentage}%` }}
               ></div>
             </div>
             <p className="text-center text-xs sm:text-sm text-gray-600 mt-2">
-              {userData.totalDays - userData.currentDay} días restantes para
-              completar tu consagración
+              {user.totalDays - available_day} días restantes para completar tu
+              consagración
             </p>
           </div>
         </div>
@@ -212,43 +431,39 @@ export default function Dashboard() {
             <div className="space-y-4">
               <div className="bg-yellow-50 rounded-lg p-3 sm:p-4">
                 <h4 className="text-sm sm:text-base font-medium text-gray-900 mb-2">
-                  Día {dailyContent.day}: {dailyContent.title}
+                  Día {daily_content.day}: {daily_content.title}
                 </h4>
                 <p className="text-xs sm:text-sm text-gray-600 mb-3">
-                  {dailyContent.description}
+                  {daily_content.description}
                 </p>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs text-gray-500">
-                    {dailyContent.readingTime} de lectura
+                    {daily_content.readingTime} de lectura
                   </span>
                   <button
                     onClick={() =>
-                      window.open(dailyContent.meditationPdfUrl, "_blank")
+                      window.open(daily_content.meditationPdfUrl, "_blank")
                     }
                     className="px-3 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600 transition-colors"
                   >
                     Ver PDF
                   </button>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">
-                    {dailyContent.tasks.meditationCompleted
-                      ? "Completada"
-                      : "Pendiente"}
-                  </span>
-                  <button
-                    onClick={() =>
-                      toggleTask(dailyContent.day, "meditationCompleted")
-                    }
-                    className={`p-1 rounded ${
-                      dailyContent.tasks.meditationCompleted
-                        ? "text-green-600 hover:text-green-700"
-                        : "text-gray-400 hover:text-gray-600"
-                    }`}
-                  >
-                    <CheckCircle className="w-4 h-4" />
-                  </button>
-                </div>
+                <button
+                  onClick={() =>
+                    toggleTask(daily_content.day, "meditationCompleted")
+                  }
+                  className={`w-full flex items-center justify-center px-3 py-2 rounded-lg transition-colors ${
+                    daily_content.tasks.meditationCompleted
+                      ? "bg-green-100 text-green-700 hover:bg-green-200"
+                      : "bg-yellow-100 text-yellow-700 hover:bg-yellow-200"
+                  }`}
+                >
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  {daily_content.tasks.meditationCompleted
+                    ? "Completada"
+                    : "Marcar como Completada"}
+                </button>
               </div>
             </div>
           </div>
@@ -266,7 +481,7 @@ export default function Dashboard() {
                 <iframe
                   width="100%"
                   height="315"
-                  src={dailyContent.video.youtubeUrl}
+                  src={daily_content.video.youtubeUrl}
                   title="YouTube video player"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -276,19 +491,19 @@ export default function Dashboard() {
               </div>
               <div className="mb-3">
                 <h4 className="text-sm sm:text-base font-medium text-gray-900 mb-1">
-                  {dailyContent.video.title}
+                  {daily_content.video.title}
                 </h4>
               </div>
               <button
-                onClick={() => toggleTask(dailyContent.day, "videoCompleted")}
+                onClick={() => toggleTask(daily_content.day, "videoCompleted")}
                 className={`w-full flex items-center justify-center px-3 py-2 rounded-lg transition-colors ${
-                  dailyContent.tasks.videoCompleted
+                  daily_content.tasks.videoCompleted
                     ? "bg-green-100 text-green-700 hover:bg-green-200"
                     : "bg-yellow-100 text-yellow-700 hover:bg-yellow-200"
                 }`}
               >
                 <CheckCircle className="w-4 h-4 mr-2" />
-                {dailyContent.tasks.videoCompleted
+                {daily_content.tasks.videoCompleted
                   ? "Completado"
                   : "Marcar como Visto"}
               </button>
@@ -306,17 +521,17 @@ export default function Dashboard() {
             <div className="space-y-4">
               <div className="bg-blue-50 rounded-lg p-3 sm:p-4">
                 <h4 className="text-sm sm:text-base font-medium text-gray-900 mb-2">
-                  {dailyContent.mysteries}
+                  {daily_content.mysteries}
                 </h4>
                 <p className="text-xs sm:text-sm text-gray-600 mb-3">
-                  {dailyContent.mysteriesDescription}
+                  {daily_content.mysteriesDescription}
                 </p>
                 <div className="text-center mb-3">
                   <blockquote className="text-xs sm:text-sm text-gray-700 italic">
-                    "{dailyContent.quote.text}"
+                    "{daily_content.quote.text}"
                   </blockquote>
                   <p className="text-xs text-blue-600 font-medium mt-1">
-                    - {dailyContent.quote.author}
+                    - {daily_content.quote.author}
                   </p>
                 </div>
                 <button
@@ -332,7 +547,7 @@ export default function Dashboard() {
                     <iframe
                       width="100%"
                       height="315"
-                      src={dailyContent.rosaryVideo.youtubeUrl}
+                      src={daily_content.rosaryVideo.youtubeUrl}
                       title="YouTube video player"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -343,60 +558,19 @@ export default function Dashboard() {
                 </div>
               )}
               <button
-                onClick={() => toggleTask(dailyContent.day, "rosaryCompleted")}
+                onClick={() => toggleTask(daily_content.day, "rosaryCompleted")}
                 className={`w-full flex items-center justify-center px-3 py-2 rounded-lg transition-colors ${
-                  dailyContent.tasks.rosaryCompleted
+                  daily_content.tasks.rosaryCompleted
                     ? "bg-green-100 text-green-700 hover:bg-green-200"
                     : "bg-blue-100 text-blue-700 hover:bg-blue-200"
                 }`}
               >
                 <CheckCircle className="w-4 h-4 mr-2" />
-                {dailyContent.tasks.rosaryCompleted
+                {daily_content.tasks.rosaryCompleted
                   ? "Completado"
                   : "Marcar como Rezado"}
               </button>
             </div>
-          </div>
-        </div>
-
-        {/* Quick Actions */}
-        <div className="bg-white rounded-xl shadow-sm border border-yellow-100 p-4 sm:p-6 mb-6 sm:mb-8">
-          <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">
-            Acciones Rápidas
-          </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-            <button
-              onClick={() => navigate("/calendar")}
-              className="flex flex-col items-center p-3 sm:p-4 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition-colors group"
-            >
-              <Calendar className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-600 mb-2 group-hover:scale-110 transition-transform" />
-              <span className="text-xs sm:text-sm font-medium text-gray-900 text-center">
-                Ver Calendario
-              </span>
-            </button>
-            <button
-              onClick={() =>
-                window.open(dailyContent.meditationPdfUrl, "_blank")
-              }
-              className="flex flex-col items-center p-3 sm:p-4 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition-colors group"
-            >
-              <BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-600 mb-2 group-hover:scale-110 transition-transform" />
-              <span className="text-xs sm:text-sm font-medium text-gray-900 text-center">
-                Ver Meditación PDF
-              </span>
-            </button>
-            <button className="flex flex-col items-center p-3 sm:p-4 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition-colors group">
-              <Heart className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-600 mb-2 group-hover:scale-110 transition-transform" />
-              <span className="text-xs sm:text-sm font-medium text-gray-900 text-center">
-                Rezar Rosario
-              </span>
-            </button>
-            <button className="flex flex-col items-center p-3 sm:p-4 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition-colors group">
-              <TrendingUp className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-600 mb-2 group-hover:scale-110 transition-transform" />
-              <span className="text-xs sm:text-sm font-medium text-gray-900 text-center">
-                Ver Progreso
-              </span>
-            </button>
           </div>
         </div>
       </main>

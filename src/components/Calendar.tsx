@@ -10,6 +10,7 @@ import {
   X,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useUserProgress, useUpdateProgress } from "../services/userService";
 
 interface DayData {
   day: number;
@@ -20,6 +21,7 @@ interface DayData {
     videoCompleted: boolean;
     rosaryCompleted: boolean;
   };
+  isAvailable: boolean;
 }
 
 interface DailyContent {
@@ -68,6 +70,10 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
   const [showVideo, setShowVideo] = useState(false);
   const [showRosaryVideo, setShowRosaryVideo] = useState(false);
 
+  // React Query hooks
+  const { data: userProgress } = useUserProgress();
+  const updateProgressMutation = useUpdateProgress();
+
   const getDayProgress = (day: DayData) => {
     const tasks = [
       day.tasks.meditationCompleted,
@@ -103,8 +109,18 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
     await fetchDailyContent(day.day);
   };
 
+  // Update selectedDay when calendarData changes to keep it in sync
+  useEffect(() => {
+    if (selectedDay) {
+      const updatedDay = calendarData.find(d => d.day === selectedDay.day);
+      if (updatedDay) {
+        setSelectedDay(updatedDay);
+      }
+    }
+  }, [calendarData, selectedDay]);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-50">
+    <div className="min-h-screen bg-whitesmoke">
       {/* Header */}
       <header className="bg-white border-b border-yellow-200 px-4 sm:px-6 py-4">
         <div className="flex items-center justify-between">
@@ -174,12 +190,18 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
             {calendarData.map((day) => (
               <div
                 key={day.day}
-                className={`border rounded-lg p-4 cursor-pointer transition-all hover:shadow-md ${
-                  day.completed
-                    ? "border-green-200 bg-green-50"
-                    : "border-gray-200 bg-white hover:border-yellow-300"
-                }`}
-                onClick={() => handleDayClick(day)}
+                className={`border rounded-lg p-4 transition-all hover:shadow-md 
+                  ${
+                    day.completed
+                      ? "border-green-200 bg-green-50"
+                      : "border-gray-200 bg-white hover:border-yellow-300"
+                  }
+                  ${
+                    !day.isAvailable
+                      ? "opacity-50 cursor-not-allowed"
+                      : "cursor-pointer"
+                  }`}
+                onClick={() => day.isAvailable && handleDayClick(day)}
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-lg font-bold text-gray-900">
@@ -220,6 +242,27 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                     )}
                   </div>
                 </div>
+
+                {!day.isAvailable && (
+                  <div className="mt-2 text-center">
+                    <span className="inline-flex items-center text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-full">
+                      <svg
+                        className="w-3 h-3 mr-1"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 17v.01M17 8V7a5 5 0 00-10 0v1M5 8h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2z"
+                        />
+                      </svg>
+                      No disponible
+                    </span>
+                  </div>
+                )}
 
                 {day.completed && (
                   <div className="mt-2 text-center">
@@ -328,7 +371,7 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                     className="w-full mt-4 flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                   >
                     <CheckCircle className="w-4 h-4 mr-2" />
-                    {dailyContent.tasks.meditationCompleted
+                    {selectedDay.tasks.meditationCompleted
                       ? "Marcar como Incompleta"
                       : "Marcar como Completada"}
                   </button>
@@ -396,7 +439,7 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                     className="w-full mt-4 flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                   >
                     <CheckCircle className="w-4 h-4 mr-2" />
-                    {dailyContent.tasks.videoCompleted
+                    {selectedDay.tasks.videoCompleted
                       ? "Marcar como No Visto"
                       : "Marcar como Visto"}
                   </button>
@@ -470,7 +513,7 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                     className="w-full flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                   >
                     <CheckCircle className="w-4 h-4 mr-2" />
-                    {dailyContent.tasks.rosaryCompleted
+                    {selectedDay.tasks.rosaryCompleted
                       ? "Marcar como No Rezado"
                       : "Marcar como Rezado"}
                   </button>
