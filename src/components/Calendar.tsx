@@ -10,7 +10,6 @@ import {
   X,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useUserProgress, useUpdateProgress } from "../services/userService";
 
 interface DayData {
   day: number;
