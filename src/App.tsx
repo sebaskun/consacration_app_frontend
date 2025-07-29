@@ -3,7 +3,6 @@ import HomePage from "./components/Homepage";
 import AuthPage from "./components/AuthPage";
 import Dashboard from "./components/Dashboard";
 import Calendar from "./components/Calendar";
-import Chatbot from "./components/Chatbot";
 import Notification from "./components/Notification";
 import "./index.css";
 import { useState, useEffect } from "react";
@@ -11,7 +10,6 @@ import MainLayout from "./components/MainLayout";
 import { useDashboard, useUpdateProgress } from "./services/userService";
 
 // Placeholder components for now
-const ChatbotPage = () => <div>Chatbot: Marie Grignion de Montfort</div>;
 
 // Calendar Page wrapper to handle API data
 const CalendarPage = () => {

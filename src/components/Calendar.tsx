@@ -71,8 +71,6 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
   const [showRosaryVideo, setShowRosaryVideo] = useState(false);
 
   // React Query hooks
-  const { data: userProgress } = useUserProgress();
-  const updateProgressMutation = useUpdateProgress();
 
   const getDayProgress = (day: DayData) => {
     const tasks = [
