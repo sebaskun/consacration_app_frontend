@@ -82,43 +82,43 @@ const AuthPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       {/* Logo in top left corner */}
-      <div className="absolute top-4 left-4">
+      <div className="absolute top-4 left-4 z-10">
         <button
           onClick={() => navigate("/")}
           className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
         >
-          <img src={MiliciaLogo} alt="Milicia Logo" className="w-8 h-8" />
-          <span className="text-sm font-semibold text-gray-700">
+          <img src={MiliciaLogo} alt="Milicia Logo" className="w-6 h-6 sm:w-8 sm:h-8" />
+          <span className="text-xs sm:text-sm font-semibold text-gray-700">
             Totus Tuus
           </span>
         </button>
       </div>
 
-      <div className="bg-white rounded-lg shadow-lg flex w-full max-w-3xl overflow-hidden">
+      <div className="bg-white rounded-lg shadow-lg flex flex-col md:flex-row w-full max-w-4xl overflow-hidden">
         {/* Left: Form */}
-        <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
+        <div className="w-full md:w-1/2 p-6 sm:p-8 flex flex-col justify-center order-2 md:order-1">
           <div className="mb-6 text-center">
-            <h1 className="text-2xl font-bold mb-2">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 leading-tight">
               Consagración Total a Jesús por María
             </h1>
-            <div className="flex justify-center mb-4">
+            <div className="flex justify-center mb-4 bg-gray-100 rounded-lg p-1">
               <button
-                className={`px-4 py-2 rounded-l ${
+                className={`flex-1 px-3 sm:px-4 py-2 rounded-md text-sm sm:text-base transition-colors ${
                   !isRegister
-                    ? "bg-yellow-600 text-white"
-                    : "bg-gray-200 text-gray-700"
+                    ? "bg-yellow-600 text-white shadow-sm"
+                    : "text-gray-700 hover:text-gray-900"
                 }`}
                 onClick={() => setIsRegister(false)}
               >
                 Iniciar Sesión
               </button>
               <button
-                className={`px-4 py-2 rounded-r ${
+                className={`flex-1 px-3 sm:px-4 py-2 rounded-md text-sm sm:text-base transition-colors ${
                   isRegister
-                    ? "bg-yellow-600 text-white"
-                    : "bg-gray-200 text-gray-700"
+                    ? "bg-yellow-600 text-white shadow-sm"
+                    : "text-gray-700 hover:text-gray-900"
                 }`}
                 onClick={() => setIsRegister(true)}
               >
@@ -134,7 +134,7 @@ const AuthPage: React.FC = () => {
                 placeholder="Nombre"
                 value={form.name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border rounded"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                 required
               />
             )}
@@ -154,7 +154,7 @@ const AuthPage: React.FC = () => {
                 placeholder="Contraseña"
                 value={form.password}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border rounded pr-10"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg pr-10 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                 required
               />
               <button
@@ -178,7 +178,7 @@ const AuthPage: React.FC = () => {
                   placeholder="Confirmar Contraseña"
                   value={form.confirmPassword}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded pr-10"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg pr-10 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                   required
                 />
                 <button
@@ -237,11 +237,11 @@ const AuthPage: React.FC = () => {
           )}
         </div>
         {/* Right: Image */}
-        <div className="hidden md:block md:w-1/2 bg-yellow-50 flex items-center content-center">
+        <div className="w-full md:w-1/2 bg-yellow-50 flex items-center justify-center p-6 order-1 md:order-2 min-h-[200px] md:min-h-full">
           <img
             src={imagenBackground}
             alt="Nuestra Señora"
-            className="object-cover rounded shadow align-center"
+            className="w-full h-auto max-w-xs md:max-w-none md:w-full md:h-full object-contain rounded shadow"
           />
         </div>
       </div>

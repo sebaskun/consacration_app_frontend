@@ -278,8 +278,8 @@ export default function Dashboard({ setUserName }: DashboardProps) {
       />
       {/* Header */}
       <header className="bg-white border-b border-yellow-200 px-4 sm:px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex-1">
             <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
               ¡Buen día, {user.name}!
             </h1>
@@ -287,8 +287,8 @@ export default function Dashboard({ setUserName }: DashboardProps) {
               Continuemos tu jornada hacia la consagración
             </p>
           </div>
-          <div className="text-right">
-            <p className="text-xs sm:text-sm font-medium text-gray-900">
+          <div className="text-left sm:text-right bg-yellow-50 p-3 rounded-lg sm:bg-transparent sm:p-0">
+            <p className="text-sm sm:text-sm font-medium text-gray-900">
               Día {available_day}
             </p>
             <p className="text-xs text-gray-500">
@@ -302,20 +302,20 @@ export default function Dashboard({ setUserName }: DashboardProps) {
       {timeRemaining && (
         <div className="bg-blue-50 border-b border-blue-200 px-4 py-3">
           <div className="text-center">
-            <div className="flex items-center justify-center mb-2">
-              <Clock className="w-5 h-5 text-blue-600 mr-2" />
-              <p className="text-sm text-blue-800 font-medium">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mb-2">
+              <Clock className="w-5 h-5 text-blue-600" />
+              <p className="text-sm text-blue-800 font-medium text-center">
                 ¡Felicitaciones! Has completado el día {available_day}
               </p>
             </div>
-            <p className="text-xs text-blue-700 mb-2">
+            <p className="text-xs sm:text-sm text-blue-700 mb-3">
               El día {available_day + 1} estará disponible a las 12:00 AM
             </p>
-            <div className="bg-blue-100 rounded-lg p-3 inline-block">
+            <div className="bg-blue-100 rounded-lg p-3 max-w-xs mx-auto">
               <p className="text-sm text-blue-800 font-medium mb-1">
                 Tiempo restante:
               </p>
-              <p className="text-2xl font-bold text-blue-600 font-mono">
+              <p className="text-xl sm:text-2xl font-bold text-blue-600 font-mono">
                 {timeRemaining}
               </p>
             </div>
@@ -356,7 +356,7 @@ export default function Dashboard({ setUserName }: DashboardProps) {
         </div>
 
         {/* Today's Activities */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
           {/* Today's Meditation */}
           <div className="bg-white rounded-xl shadow-sm border border-yellow-100 p-4 sm:p-6">
             <div className="flex items-center justify-between mb-4">
@@ -414,16 +414,16 @@ export default function Dashboard({ setUserName }: DashboardProps) {
               <Play className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-600" />
             </div>
             <div className="space-y-4">
-              <div className="relative bg-gray-100 rounded-lg aspect-video">
+              <div className="relative bg-gray-100 rounded-lg aspect-video overflow-hidden">
                 <iframe
                   width="100%"
-                  height="315"
+                  height="100%"
                   src={daily_content.video.youtubeUrl}
                   title="YouTube video player"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                  className="w-full h-full object-cover rounded-lg"
+                  className="absolute inset-0 w-full h-full rounded-lg"
                 ></iframe>
               </div>
               <div className="mb-3">
@@ -480,16 +480,16 @@ export default function Dashboard({ setUserName }: DashboardProps) {
               </div>
               {showRosaryVideo && (
                 <div className="space-y-3">
-                  <div className="relative bg-gray-100 rounded-lg aspect-video">
+                  <div className="relative bg-gray-100 rounded-lg aspect-video overflow-hidden">
                     <iframe
                       width="100%"
-                      height="315"
+                      height="100%"
                       src={daily_content.rosaryVideo.youtubeUrl}
                       title="YouTube video player"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
-                      className="w-full h-full object-cover rounded-lg"
+                      className="absolute inset-0 w-full h-full rounded-lg"
                     ></iframe>
                   </div>
                 </div>

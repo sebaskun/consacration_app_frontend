@@ -6,6 +6,7 @@ import {
   User,
   Menu,
   Info,
+  X,
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import AboutModal from "./AboutModal";
@@ -46,18 +47,36 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, userName }) => {
         </button>
       </div>
 
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
       <aside
         className={`fixed left-0 top-0 z-40 w-64 h-screen bg-white border-r border-yellow-200 shadow-lg transform transition-transform duration-300 ease-in-out ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0`}
       >
-        <div className="h-full px-3 py-4 overflow-y-auto">
+        <div className="h-full px-3 py-4 overflow-y-auto flex flex-col">
+          {/* Close button on mobile */}
+          <div className="lg:hidden flex justify-end mb-4">
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="p-2 text-gray-500 hover:text-gray-700"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
           {/* Logo */}
           <div className="flex items-center mb-8 px-3">
-            <Crown className="h-8 w-8 text-yellow-600 mr-3" />
+            <Crown className="h-6 w-6 sm:h-8 sm:w-8 text-yellow-600 mr-2 sm:mr-3" />
             <div>
-              <span className="text-xl font-bold text-gray-900">
+              <span className="text-lg sm:text-xl font-bold text-gray-900">
                 Totus Tuus
               </span>
               <p className="text-xs text-gray-500">
@@ -67,11 +86,14 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, userName }) => {
           </div>
 
           {/* Navigation */}
-          <ul className="space-y-2 font-medium">
+          <ul className="space-y-2 font-medium flex-1">
             <li>
               <button
-                onClick={() => navigate("/dashboard")}
-                className={`w-full flex items-center p-2 rounded-lg group ${
+                onClick={() => {
+                  navigate("/dashboard");
+                  setSidebarOpen(false);
+                }}
+                className={`w-full flex items-center p-3 rounded-lg group ${
                   location.pathname === "/dashboard"
                     ? "bg-yellow-100 text-yellow-900"
                     : "text-gray-900 hover:bg-yellow-100"
@@ -83,8 +105,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, userName }) => {
             </li>
             <li>
               <button
-                onClick={() => navigate("/calendar")}
-                className={`w-full flex items-center p-2 rounded-lg group ${
+                onClick={() => {
+                  navigate("/calendar");
+                  setSidebarOpen(false);
+                }}
+                className={`w-full flex items-center p-3 rounded-lg group ${
                   location.pathname === "/calendar"
                     ? "bg-yellow-100 text-yellow-900"
                     : "text-gray-900 hover:bg-yellow-100"
@@ -96,8 +121,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, userName }) => {
             </li>
             <li>
               <button
-                onClick={() => setShowAbout(true)}
-                className="w-full flex items-center p-2 rounded-lg group text-gray-900 hover:bg-yellow-100"
+                onClick={() => {
+                  setShowAbout(true);
+                  setSidebarOpen(false);
+                }}
+                className="w-full flex items-center p-3 rounded-lg group text-gray-900 hover:bg-yellow-100"
               >
                 <Info className="w-5 h-5" />
                 <span className="ml-3">Acerca de</span>
@@ -106,23 +134,26 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, userName }) => {
           </ul>
 
           {/* User Profile */}
-          <div className="absolute bottom-4 left-3 right-3">
+          <div className="mt-auto space-y-4">
             <div
               className="flex items-center p-3 bg-yellow-50 rounded-lg border border-yellow-200 cursor-pointer hover:bg-yellow-100 transition-colors"
-              onClick={() => setShowUserProfile(true)}
+              onClick={() => {
+                setShowUserProfile(true);
+                setSidebarOpen(false);
+              }}
             >
               <div className="w-10 h-10 bg-yellow-200 rounded-full flex items-center justify-center">
                 <User className="w-5 h-5 text-yellow-700" />
               </div>
-              <div className="ml-3 flex-1">
-                <p className="text-sm font-medium text-gray-900">
+              <div className="ml-3 flex-1 min-w-0">
+                <p className="text-sm font-medium text-gray-900 truncate">
                   {userName || "Usuario"}
                 </p>
               </div>
             </div>
             <button
               onClick={handleLogout}
-              className="mt-4 w-full bg-yellow-600 text-white py-2 rounded font-semibold hover:bg-yellow-700 transition"
+              className="w-full bg-yellow-600 text-white py-2 px-4 rounded font-semibold hover:bg-yellow-700 transition"
             >
               Cerrar sesión
             </button>
@@ -131,7 +162,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, userName }) => {
       </aside>
 
       {/* Main Content */}
-      <div className="lg:ml-64 min-h-screen">{children}</div>
+      <div className="lg:ml-64 min-h-screen">
+        <div className="pt-16 lg:pt-0">
+          {children}
+        </div>
+      </div>
 
       {/* About Modal */}
       <AboutModal isOpen={showAbout} onClose={() => setShowAbout(false)} />

@@ -150,30 +150,30 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
           <h2 className="text-lg font-semibold text-gray-900 mb-4">
             Resumen de Progreso
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-yellow-600">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="text-center p-3 bg-yellow-50 rounded-lg">
+              <div className="text-xl sm:text-2xl font-bold text-yellow-600">
                 {calendarData.filter((d) => d.completed).length}
               </div>
-              <div className="text-sm text-gray-600">Días Completados</div>
+              <div className="text-xs sm:text-sm text-gray-600">Días Completados</div>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">
+            <div className="text-center p-3 bg-blue-50 rounded-lg">
+              <div className="text-xl sm:text-2xl font-bold text-blue-600">
                 {calendarData.filter((d) => d.tasks.meditationCompleted).length}
               </div>
-              <div className="text-sm text-gray-600">Meditaciones</div>
+              <div className="text-xs sm:text-sm text-gray-600">Meditaciones</div>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-red-600">
+            <div className="text-center p-3 bg-red-50 rounded-lg">
+              <div className="text-xl sm:text-2xl font-bold text-red-600">
                 {calendarData.filter((d) => d.tasks.videoCompleted).length}
               </div>
-              <div className="text-sm text-gray-600">Videos</div>
+              <div className="text-xs sm:text-sm text-gray-600">Videos</div>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">
+            <div className="text-center p-3 bg-green-50 rounded-lg">
+              <div className="text-xl sm:text-2xl font-bold text-green-600">
                 {calendarData.filter((d) => d.tasks.rosaryCompleted).length}
               </div>
-              <div className="text-sm text-gray-600">Rosarios</div>
+              <div className="text-xs sm:text-sm text-gray-600">Rosarios</div>
             </div>
           </div>
         </div>
@@ -183,11 +183,11 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
           <h2 className="text-lg font-semibold text-gray-900 mb-4">
             Los 33 Días
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 sm:gap-4">
             {calendarData.map((day) => (
               <div
                 key={day.day}
-                className={`border rounded-lg p-4 transition-all hover:shadow-md 
+                className={`border rounded-lg p-3 sm:p-4 transition-all hover:shadow-md 
                   ${
                     day.completed
                       ? "border-green-200 bg-green-50"
@@ -275,27 +275,29 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
 
         {/* Day Detail Modal */}
         {selectedDay && dailyContent && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="flex items-center justify-between mb-4 p-6 border-b">
-                <h2 className="text-xl font-bold">
-                  Día {selectedDay.day}: {dailyContent.title}
-                </h2>
-                <button
-                  onClick={() => {
-                    setSelectedDay(null);
-                    setDailyContent(null);
-                    setShowMeditation(false);
-                    setShowVideo(false);
-                    setShowRosaryVideo(false);
-                  }}
-                  className="text-gray-500 hover:text-gray-700"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start sm:items-center justify-center p-2 sm:p-4 z-50 overflow-y-auto">
+            <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl my-4 sm:my-0 max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
+              <div className="sticky top-0 bg-white border-b border-gray-200 p-4 sm:p-6 z-10">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-lg sm:text-xl font-bold text-gray-900 pr-4">
+                    Día {selectedDay.day}: {dailyContent.title}
+                  </h2>
+                  <button
+                    onClick={() => {
+                      setSelectedDay(null);
+                      setDailyContent(null);
+                      setShowMeditation(false);
+                      setShowVideo(false);
+                      setShowRosaryVideo(false);
+                    }}
+                    className="flex-shrink-0 p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
 
-              <div className="p-6 space-y-6">
+              <div className="p-4 sm:p-6 space-y-6">
                 {/* Meditation Section */}
                 <div className="bg-yellow-50 rounded-lg p-4">
                   <div className="flex items-center justify-between mb-4">
@@ -414,16 +416,16 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                         <h4 className="font-semibold text-gray-900 mb-3">
                           Video Completo
                         </h4>
-                        <div className="relative bg-gray-100 rounded-lg aspect-video mb-4">
+                        <div className="relative bg-gray-100 rounded-lg aspect-video mb-4 overflow-hidden">
                           <iframe
                             width="100%"
-                            height="315"
+                            height="100%"
                             src={dailyContent.video.youtubeUrl}
                             title="YouTube video player"
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
-                            className="w-full h-64 rounded-lg"
+                            className="absolute inset-0 w-full h-full rounded-lg"
                           ></iframe>
                         </div>
                       </div>
@@ -487,16 +489,16 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                           <h5 className="font-semibold text-gray-900 mb-3">
                             {dailyContent.rosaryVideo.title}
                           </h5>
-                          <div className="relative bg-gray-200 rounded-lg aspect-video mb-4">
+                          <div className="relative bg-gray-200 rounded-lg aspect-video mb-4 overflow-hidden">
                             <iframe
                               width="100%"
-                              height="315"
+                              height="100%"
                               src={dailyContent.rosaryVideo.youtubeUrl}
                               title="YouTube video player"
                               frameBorder="0"
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
-                              className="w-full h-64 rounded-lg"
+                              className="absolute inset-0 w-full h-full rounded-lg"
                             ></iframe>
                           </div>
                         </div>
