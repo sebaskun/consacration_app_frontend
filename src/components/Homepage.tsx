@@ -36,7 +36,7 @@ export default function HomePage() {
             Aplicación
           </a>
           <a
-            href="/acerca"
+            onClick={() => setShowAbout(true)}
             className="text-sm font-medium hover:text-yellow-600 transition-colors"
           >
             Acerca de
@@ -80,9 +80,9 @@ export default function HomePage() {
                 >
                   ✨ Totus Tuus - Comienza tu Jornada
                 </button>
-                <button className="inline-flex items-center justify-center whitespace-nowrap rounded-lg text-lg font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-2 border-white/80 text-white hover:bg-white hover:text-gray-900 backdrop-blur-sm px-8 py-4">
+                {/* <button className="inline-flex items-center justify-center whitespace-nowrap rounded-lg text-lg font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-2 border-white/80 text-white hover:bg-white hover:text-gray-900 backdrop-blur-sm px-8 py-4">
                   Saber Más
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
