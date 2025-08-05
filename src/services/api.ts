@@ -1,4 +1,11 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 
+  (import.meta.env.PROD 
+    ? "https://consacrationappbackend-production.up.railway.app/api/v1"
+    : "http://localhost:8000/api/v1");
+
+// Debug log to verify the URL (remove after testing)
+console.log("API_BASE_URL:", API_BASE_URL);
+console.log("Environment:", import.meta.env);
 
 export interface ApiResponse<T> {
   data?: T;
