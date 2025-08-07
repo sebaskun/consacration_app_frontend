@@ -7,11 +7,13 @@ import {
   Menu,
   Info,
   X,
+  Clock,
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import AboutModal from "./AboutModal";
 import UserProfileModal from "./UserProfileModal";
-import { useUpdateProfile, useDeleteAccount } from "../services/userService";
+import LibreModeModal from "./LibreModeModal";
+import { useUpdateProfile, useDeleteAccount, useDashboard, useToggleLibreMode } from "../services/userService";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -24,16 +26,38 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, userName }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [showUserProfile, setShowUserProfile] = useState(false);
+  const [showLibreModeModal, setShowLibreModeModal] = useState(false);
+  const [libreModeAction, setLibreModeAction] = useState<"activate" | "deactivate">("activate");
 
   // React Query hooks
+  const { data: dashboardData } = useDashboard();
   const updateProfileMutation = useUpdateProfile();
   const deleteAccountMutation = useDeleteAccount();
+  const toggleLibreModeMutation = useToggleLibreMode();
 
   const handleLogout = () => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     navigate("/auth");
   };
+
+  const handleLibreModeToggle = () => {
+    const currentLibreMode = dashboardData?.user?.libre_mode || false;
+    setLibreModeAction(currentLibreMode ? "deactivate" : "activate");
+    setShowLibreModeModal(true);
+  };
+
+  const confirmLibreModeToggle = async () => {
+    try {
+      const newLibreMode = libreModeAction === "activate";
+      await toggleLibreModeMutation.mutateAsync(newLibreMode);
+      setShowLibreModeModal(false);
+    } catch (error) {
+      console.error("Error toggling libre mode:", error);
+    }
+  };
+
+  const isLibreModeActive = dashboardData?.user?.libre_mode || false;
 
   return (
     <div className="min-h-screen bg-whitesmoke">
@@ -133,6 +157,44 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, userName }) => {
             </li>
           </ul>
 
+          {/* Libre Mode Toggle */}
+          <div className="mt-4 px-3">
+            <div className="border-t border-gray-200 pt-4">
+              <button
+                onClick={handleLibreModeToggle}
+                className={`w-full flex items-center justify-between p-3 rounded-lg transition-colors ${
+                  isLibreModeActive
+                    ? "bg-yellow-100 text-yellow-900 border border-yellow-200"
+                    : "bg-gray-50 text-gray-700 hover:bg-gray-100"
+                }`}
+              >
+                <div className="flex items-center">
+                  <Clock className="w-5 h-5" />
+                  <div className="ml-3 text-left">
+                    <span className="text-sm font-medium block">Modo Libre</span>
+                    <span className="text-xs text-gray-500">
+                      {isLibreModeActive ? "Activo" : "Inactivo"}
+                    </span>
+                  </div>
+                </div>
+                <div
+                  className={`w-11 h-6 rounded-full p-1 transition-colors ${
+                    isLibreModeActive ? "bg-yellow-500" : "bg-gray-300"
+                  }`}
+                >
+                  <div
+                    className={`w-4 h-4 rounded-full bg-white transition-transform ${
+                      isLibreModeActive ? "translate-x-5" : "translate-x-0"
+                    }`}
+                  />
+                </div>
+              </button>
+              <p className="text-xs text-gray-500 mt-2 px-3">
+                Avanzar días sin esperar
+              </p>
+            </div>
+          </div>
+
           {/* User Profile */}
           <div className="mt-auto space-y-4">
             <div
@@ -193,6 +255,15 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, userName }) => {
             console.error("Error deleting account:", error);
           }
         }}
+      />
+
+      {/* Libre Mode Modal */}
+      <LibreModeModal
+        isOpen={showLibreModeModal}
+        onClose={() => setShowLibreModeModal(false)}
+        onConfirm={confirmLibreModeToggle}
+        isActivating={libreModeAction === "activate"}
+        isLoading={toggleLibreModeMutation.isPending}
       />
     </div>
   );

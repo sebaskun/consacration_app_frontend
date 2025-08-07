@@ -68,6 +68,8 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
   const [showMeditation, setShowMeditation] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [showRosaryVideo, setShowRosaryVideo] = useState(false);
+  const [loadingContent, setLoadingContent] = useState(false);
+  const [contentError, setContentError] = useState<string | null>(null);
 
   // React Query hooks
 
@@ -84,20 +86,48 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
     const currentDay = calendarData.find((d) => d.day === day);
     if (currentDay) {
       const newCompleted = !currentDay.tasks[task];
-      onTaskUpdate(day, task, newCompleted);
+      // Convertir task key a formato esperado por la API
+      const taskMap = {
+        meditationCompleted: 'meditationCompleted',
+        videoCompleted: 'videoCompleted', 
+        rosaryCompleted: 'rosaryCompleted'
+      };
+      onTaskUpdate(day, taskMap[task], newCompleted);
     }
   };
 
   const fetchDailyContent = async (day: number) => {
+    setLoadingContent(true);
+    setContentError(null);
+    
     try {
-      const response = await fetch("/src/data/mockApi.json");
-      const data = await response.json();
-      const content = data.dailyContent[day.toString()];
-      if (content) {
+      // Usar la API real del backend para obtener contenido del día específico
+      const token = localStorage.getItem("access_token");
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 
+        (import.meta.env.PROD 
+          ? "https://consacrationappbackend-production.up.railway.app/api/v1"
+          : "http://localhost:8000/api/v1");
+          
+      const response = await fetch(`${API_BASE_URL}/content/daily/${day}`, {
+        headers: {
+          "Content-Type": "application/json",
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
+      });
+      
+      if (response.ok) {
+        const content = await response.json();
         setDailyContent(content);
+      } else if (response.status === 401) {
+        setContentError("Sesión expirada. Por favor, inicia sesión nuevamente.");
+      } else {
+        setContentError(`Error al cargar el contenido: ${response.statusText}`);
       }
     } catch (error) {
       console.error("Error fetching daily content:", error);
+      setContentError("Error de conexión. Verifica tu conexión a internet.");
+    } finally {
+      setLoadingContent(false);
     }
   };
 
@@ -274,13 +304,13 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
         </div>
 
         {/* Day Detail Modal */}
-        {selectedDay && dailyContent && (
+        {selectedDay && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start sm:items-center justify-center p-2 sm:p-4 z-50 overflow-y-auto">
             <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl my-4 sm:my-0 max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
               <div className="sticky top-0 bg-white border-b border-gray-200 p-4 sm:p-6 z-10">
                 <div className="flex items-center justify-between">
                   <h2 className="text-lg sm:text-xl font-bold text-gray-900 pr-4">
-                    Día {selectedDay.day}: {dailyContent.title}
+                    Día {selectedDay.day}: {dailyContent ? dailyContent.title : selectedDay.title}
                   </h2>
                   <button
                     onClick={() => {
@@ -289,6 +319,7 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                       setShowMeditation(false);
                       setShowVideo(false);
                       setShowRosaryVideo(false);
+                      setContentError(null);
                     }}
                     className="flex-shrink-0 p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full"
                   >
@@ -298,6 +329,35 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
               </div>
 
               <div className="p-4 sm:p-6 space-y-6">
+                {/* Loading State */}
+                {loadingContent && (
+                  <div className="flex flex-col items-center justify-center py-8">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-600 mb-4"></div>
+                    <p className="text-gray-600">Cargando contenido del día...</p>
+                  </div>
+                )}
+
+                {/* Error State */}
+                {contentError && (
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                    <div className="flex items-center mb-2">
+                      <X className="w-5 h-5 text-red-600 mr-2" />
+                      <h3 className="text-lg font-semibold text-red-800">Error</h3>
+                    </div>
+                    <p className="text-red-700 mb-4">{contentError}</p>
+                    <button
+                      onClick={() => fetchDailyContent(selectedDay.day)}
+                      className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                    >
+                      Reintentar
+                    </button>
+                  </div>
+                )}
+
+                {/* Content */}
+                {dailyContent && !loadingContent && !contentError && (
+                  <>
+                
                 {/* Meditation Section */}
                 <div className="bg-yellow-50 rounded-lg p-4">
                   <div className="flex items-center justify-between mb-4">
@@ -517,6 +577,8 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                       : "Marcar como Rezado"}
                   </button>
                 </div>
+                  </>
+                )}
               </div>
             </div>
           </div>

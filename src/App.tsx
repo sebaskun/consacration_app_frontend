@@ -34,7 +34,9 @@ const CalendarPage = () => {
   const calendarData =
     dashboardData?.progress?.map((day: any) => ({
       day: day.day,
-      title: `Día ${day.day}`,
+      title: dashboardData?.daily_content && dashboardData.daily_content.day === day.day 
+        ? dashboardData.daily_content.title 
+        : `Día ${day.day}`,
       completed: day.total_completed === 3,
       tasks: {
         meditationCompleted: day.meditation_completed,

@@ -49,6 +49,14 @@ export const userService = {
       method: "DELETE",
     });
   },
+
+  // Toggle libre mode
+  toggleLibreMode: async (libre_mode: boolean): Promise<UserResponse> => {
+    return apiRequest<UserResponse>("/users/libre-mode", {
+      method: "PUT",
+      body: JSON.stringify({ libre_mode }),
+    });
+  },
 };
 
 // React Query hooks
@@ -118,6 +126,24 @@ export const useDeleteAccount = () => {
       // Clear all data and invalidate queries
       localStorage.clear();
       queryClient.clear();
+    },
+  });
+};
+
+export const useToggleLibreMode = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: userService.toggleLibreMode,
+    onSuccess: (data) => {
+      // Update local storage if user data exists
+      const userData = JSON.parse(localStorage.getItem("user_data") || "{}");
+      const updatedUserData = { ...userData, ...data };
+      localStorage.setItem("user_data", JSON.stringify(updatedUserData));
+
+      // Invalidate and refetch user-related queries
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ["dashboard"] });
     },
   });
 };

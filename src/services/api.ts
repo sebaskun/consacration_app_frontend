@@ -1,11 +1,17 @@
+// Configuración de la URL base de la API basada en variables de entorno
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 
   (import.meta.env.PROD 
     ? "https://consacrationappbackend-production.up.railway.app/api/v1"
     : "http://localhost:8000/api/v1");
 
-// Debug log to verify the URL (remove after testing)
-console.log("API_BASE_URL:", API_BASE_URL);
-console.log("Environment:", import.meta.env);
+// Debug log para verificar la configuración (solo en desarrollo)
+if (import.meta.env.DEV) {
+  console.log("🔧 Configuración de API:");
+  console.log("  - URL Base:", API_BASE_URL);
+  console.log("  - Modo:", import.meta.env.MODE);
+  console.log("  - Entorno:", import.meta.env.VITE_ENVIRONMENT);
+  console.log("  - Es Producción:", import.meta.env.PROD);
+}
 
 export interface ApiResponse<T> {
   data?: T;
@@ -29,6 +35,7 @@ export interface UserResponse {
   name: string;
   email: string;
   current_day: number;
+  libre_mode: boolean;
   start_date: string;
   is_active: boolean;
   created_at: string;
