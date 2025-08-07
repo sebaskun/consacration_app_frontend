@@ -3,7 +3,6 @@ import HomePage from "./components/Homepage";
 import AuthPage from "./components/AuthPage";
 import Dashboard from "./components/Dashboard";
 import Calendar from "./components/Calendar";
-import "./index.css";
 import { useState } from "react";
 import MainLayout from "./components/MainLayout";
 import { useDashboard } from "./services/userService";

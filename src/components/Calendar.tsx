@@ -83,7 +83,42 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData }) => {
   };
 
 
-  const fetchDailyContent = async (day: number) => {
+  const transformBackendContent = (backendContent: any, userTasks?: any): DailyContent => {
+    return {
+      day: backendContent.day,
+      title: backendContent.title,
+      description: backendContent.description,
+      readingTime: "5-10 min", // Default reading time
+      mysteries: backendContent.mysteries || "Misterios del Rosario",
+      mysteriesDescription: "Reflexiona sobre estos misterios mientras rezas el Rosario.",
+      video: {
+        title: `Video del Día ${backendContent.day}`,
+        duration: "10-15 min",
+        author: "Padre Spiritual",
+        thumbnail: "",
+        youtubeUrl: backendContent.video_url || ""
+      },
+      rosaryVideo: {
+        title: "Guía para Rezar el Rosario",
+        duration: "20-30 min",
+        author: "Guía Espiritual",
+        thumbnail: "",
+        youtubeUrl: backendContent.rosary_video_url || ""
+      },
+      quote: {
+        text: backendContent.quote || "Reflexión del día",
+        author: "San Luis María Grignion de Montfort"
+      },
+      tasks: {
+        meditationCompleted: userTasks?.meditationCompleted || false,
+        videoCompleted: userTasks?.videoCompleted || false,
+        rosaryCompleted: userTasks?.rosaryCompleted || false
+      },
+      meditationPdfUrl: backendContent.meditation_pdf_url || ""
+    };
+  };
+
+  const fetchDailyContent = async (day: number, dayData?: DayData) => {
     setLoadingContent(true);
     setContentError(null);
     
@@ -103,8 +138,11 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData }) => {
       });
       
       if (response.ok) {
-        const content = await response.json();
-        setDailyContent(content);
+        const backendContent = await response.json();
+        // Use the provided dayData or find it from calendarData
+        const taskData = dayData?.tasks || calendarData.find(d => d.day === day)?.tasks;
+        const transformedContent = transformBackendContent(backendContent, taskData);
+        setDailyContent(transformedContent);
       } else if (response.status === 401) {
         setContentError("Sesión expirada. Por favor, inicia sesión nuevamente.");
       } else {
@@ -120,7 +158,7 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData }) => {
 
   const handleDayClick = async (day: DayData) => {
     setSelectedDay(day);
-    await fetchDailyContent(day.day);
+    await fetchDailyContent(day.day, day);
   };
 
   // Update selectedDay when calendarData changes to keep it in sync
