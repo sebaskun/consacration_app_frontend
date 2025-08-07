@@ -24,7 +24,7 @@ export default function Dashboard({ setUserName }: DashboardProps) {
   const [showRosaryVideo, setShowRosaryVideo] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState<string>("");
   const [pendingUpdates, setPendingUpdates] = useState<{
-    [key: string]: number;
+    [key: string]: NodeJS.Timeout;
   }>({});
   const [notification, setNotification] = useState<{
     message: string;
