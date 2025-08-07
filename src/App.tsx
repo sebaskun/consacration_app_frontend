@@ -27,7 +27,7 @@ const CalendarPage = () => {
         videoCompleted: day.video_completed || false,
         rosaryCompleted: day.rosary_completed || false,
       },
-      isAvailable: day.day <= (dashboardData?.available_day || 0),
+      isAvailable: day.day <= (dashboardData?.available_day || 0) || (dashboardData?.user?.start_day > 1 && day.day < dashboardData.user.start_day),
     })) || [];
 
 
