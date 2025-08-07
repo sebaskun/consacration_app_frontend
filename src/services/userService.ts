@@ -57,6 +57,14 @@ export const userService = {
       body: JSON.stringify({ libre_mode }),
     });
   },
+
+  // Set start day (only available once)
+  setStartDay: async (start_day: number): Promise<UserResponse> => {
+    return apiRequest<UserResponse>("/users/set-start-day", {
+      method: "POST",
+      body: JSON.stringify({ start_day }),
+    });
+  },
 };
 
 // React Query hooks
@@ -135,6 +143,24 @@ export const useToggleLibreMode = () => {
 
   return useMutation({
     mutationFn: userService.toggleLibreMode,
+    onSuccess: (data) => {
+      // Update local storage if user data exists
+      const userData = JSON.parse(localStorage.getItem("user_data") || "{}");
+      const updatedUserData = { ...userData, ...data };
+      localStorage.setItem("user_data", JSON.stringify(updatedUserData));
+
+      // Invalidate and refetch user-related queries
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+    },
+  });
+};
+
+export const useSetStartDay = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: userService.setStartDay,
     onSuccess: (data) => {
       // Update local storage if user data exists
       const userData = JSON.parse(localStorage.getItem("user_data") || "{}");

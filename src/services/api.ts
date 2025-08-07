@@ -35,6 +35,8 @@ export interface UserResponse {
   name: string;
   email: string;
   current_day: number;
+  start_day: number;
+  has_chosen_start_day: boolean;
   libre_mode: boolean;
   start_date: string;
   is_active: boolean;

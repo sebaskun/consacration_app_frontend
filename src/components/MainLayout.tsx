@@ -8,12 +8,14 @@ import {
   Info,
   X,
   Clock,
+  Play,
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import AboutModal from "./AboutModal";
 import UserProfileModal from "./UserProfileModal";
 import LibreModeModal from "./LibreModeModal";
-import { useUpdateProfile, useDeleteAccount, useDashboard, useToggleLibreMode } from "../services/userService";
+import StartDayModal from "./StartDayModal";
+import { useUpdateProfile, useDeleteAccount, useDashboard, useToggleLibreMode, useSetStartDay } from "../services/userService";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -27,6 +29,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, userName }) => {
   const [showAbout, setShowAbout] = useState(false);
   const [showUserProfile, setShowUserProfile] = useState(false);
   const [showLibreModeModal, setShowLibreModeModal] = useState(false);
+  const [showStartDayModal, setShowStartDayModal] = useState(false);
   const [libreModeAction, setLibreModeAction] = useState<"activate" | "deactivate">("activate");
 
   // React Query hooks
@@ -34,6 +37,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, userName }) => {
   const updateProfileMutation = useUpdateProfile();
   const deleteAccountMutation = useDeleteAccount();
   const toggleLibreModeMutation = useToggleLibreMode();
+  const setStartDayMutation = useSetStartDay();
 
   const handleLogout = () => {
     localStorage.removeItem("access_token");
@@ -57,7 +61,17 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, userName }) => {
     }
   };
 
+  const handleStartDaySelection = async (startDay: number) => {
+    try {
+      await setStartDayMutation.mutateAsync(startDay);
+      setShowStartDayModal(false);
+    } catch (error) {
+      console.error("Error setting start day:", error);
+    }
+  };
+
   const isLibreModeActive = dashboardData?.user?.libre_mode || false;
+  const canChooseStartDay = dashboardData?.user?.has_chosen_start_day === false;
 
   return (
     <div className="min-h-screen bg-whitesmoke">
@@ -155,6 +169,29 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, userName }) => {
                 <span className="ml-3">Acerca de</span>
               </button>
             </li>
+            
+            {/* Start Day Selection - Only show if user hasn't chosen yet */}
+            {canChooseStartDay && (
+              <li>
+                <button
+                  onClick={() => {
+                    setShowStartDayModal(true);
+                    setSidebarOpen(false);
+                  }}
+                  className="w-full flex items-center p-3 rounded-lg group text-gray-900 hover:bg-green-100 border border-green-200 bg-green-50"
+                >
+                  <Play className="w-5 h-5 text-green-600" />
+                  <div className="ml-3 text-left">
+                    <span className="text-sm font-medium text-green-800 block">
+                      Elegir Día de Inicio
+                    </span>
+                    <span className="text-xs text-green-600">
+                      Solo disponible una vez
+                    </span>
+                  </div>
+                </button>
+              </li>
+            )}
           </ul>
 
           {/* Libre Mode Toggle */}
@@ -264,6 +301,14 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, userName }) => {
         onConfirm={confirmLibreModeToggle}
         isActivating={libreModeAction === "activate"}
         isLoading={toggleLibreModeMutation.isPending}
+      />
+
+      {/* Start Day Selection Modal */}
+      <StartDayModal
+        isOpen={showStartDayModal}
+        onClose={() => setShowStartDayModal(false)}
+        onConfirm={handleStartDaySelection}
+        isLoading={setStartDayMutation.isPending}
       />
     </div>
   );

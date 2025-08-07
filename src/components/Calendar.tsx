@@ -58,10 +58,9 @@ interface DailyContent {
 
 interface CalendarProps {
   calendarData: DayData[];
-  onTaskUpdate: (day: number, task: string, completed: boolean) => void;
 }
 
-const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
+const Calendar: React.FC<CalendarProps> = ({ calendarData }) => {
   const navigate = useNavigate();
   const [selectedDay, setSelectedDay] = useState<DayData | null>(null);
   const [dailyContent, setDailyContent] = useState<DailyContent | null>(null);
@@ -74,6 +73,7 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
   // React Query hooks
 
   const getDayProgress = (day: DayData) => {
+    if (!day.tasks) return 0;
     const tasks = [
       day.tasks.meditationCompleted,
       day.tasks.videoCompleted,
@@ -82,19 +82,6 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
     return tasks.filter(Boolean).length;
   };
 
-  const handleTaskToggle = (day: number, task: keyof DayData["tasks"]) => {
-    const currentDay = calendarData.find((d) => d.day === day);
-    if (currentDay) {
-      const newCompleted = !currentDay.tasks[task];
-      // Convertir task key a formato esperado por la API
-      const taskMap = {
-        meditationCompleted: 'meditationCompleted',
-        videoCompleted: 'videoCompleted', 
-        rosaryCompleted: 'rosaryCompleted'
-      };
-      onTaskUpdate(day, taskMap[task], newCompleted);
-    }
-  };
 
   const fetchDailyContent = async (day: number) => {
     setLoadingContent(true);
@@ -189,19 +176,19 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
             </div>
             <div className="text-center p-3 bg-blue-50 rounded-lg">
               <div className="text-xl sm:text-2xl font-bold text-blue-600">
-                {calendarData.filter((d) => d.tasks.meditationCompleted).length}
+                {calendarData.filter((d) => d.tasks?.meditationCompleted).length}
               </div>
               <div className="text-xs sm:text-sm text-gray-600">Meditaciones</div>
             </div>
             <div className="text-center p-3 bg-red-50 rounded-lg">
               <div className="text-xl sm:text-2xl font-bold text-red-600">
-                {calendarData.filter((d) => d.tasks.videoCompleted).length}
+                {calendarData.filter((d) => d.tasks?.videoCompleted).length}
               </div>
               <div className="text-xs sm:text-sm text-gray-600">Videos</div>
             </div>
             <div className="text-center p-3 bg-green-50 rounded-lg">
               <div className="text-xl sm:text-2xl font-bold text-green-600">
-                {calendarData.filter((d) => d.tasks.rosaryCompleted).length}
+                {calendarData.filter((d) => d.tasks?.rosaryCompleted).length}
               </div>
               <div className="text-xs sm:text-sm text-gray-600">Rosarios</div>
             </div>
@@ -240,13 +227,13 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                 </div>
 
                 <h3 className="text-sm font-medium text-gray-900 mb-2 line-clamp-2">
-                  {day.title}
+                  {day.title || `Día ${day.day}`}
                 </h3>
 
                 <div className="space-y-1">
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-gray-600">Meditación</span>
-                    {day.tasks.meditationCompleted ? (
+                    {day.tasks?.meditationCompleted ? (
                       <CheckCircle className="w-3 h-3 text-green-600" />
                     ) : (
                       <Circle className="w-3 h-3 text-gray-400" />
@@ -254,7 +241,7 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                   </div>
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-gray-600">Video</span>
-                    {day.tasks.videoCompleted ? (
+                    {day.tasks?.videoCompleted ? (
                       <CheckCircle className="w-3 h-3 text-green-600" />
                     ) : (
                       <Circle className="w-3 h-3 text-gray-400" />
@@ -262,7 +249,7 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                   </div>
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-gray-600">Rosario</span>
-                    {day.tasks.rosaryCompleted ? (
+                    {day.tasks?.rosaryCompleted ? (
                       <CheckCircle className="w-3 h-3 text-green-600" />
                     ) : (
                       <Circle className="w-3 h-3 text-gray-400" />
@@ -310,7 +297,7 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
               <div className="sticky top-0 bg-white border-b border-gray-200 p-4 sm:p-6 z-10">
                 <div className="flex items-center justify-between">
                   <h2 className="text-lg sm:text-xl font-bold text-gray-900 pr-4">
-                    Día {selectedDay.day}: {dailyContent ? dailyContent.title : selectedDay.title}
+                    Día {selectedDay.day}: {dailyContent?.title || selectedDay.title || `Día ${selectedDay.day}`}
                   </h2>
                   <button
                     onClick={() => {
@@ -368,7 +355,7 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                   </div>
                   <button
                     onClick={() =>
-                      window.open(dailyContent.meditationPdfUrl, "_blank")
+                      window.open(dailyContent.meditationPdfUrl || '#', "_blank")
                     }
                     className="mb-4 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
                   >
@@ -378,11 +365,11 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                   {!showMeditation ? (
                     <div>
                       <p className="text-gray-700 mb-4 line-clamp-3">
-                        {dailyContent.description}
+                        {dailyContent.description || 'Descripción no disponible'}
                       </p>
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-600">
-                          {dailyContent.readingTime} de lectura
+                          {dailyContent.readingTime || '5-10 min'} de lectura
                         </span>
                         <button
                           onClick={() => setShowMeditation(true)}
@@ -407,7 +394,7 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                           Meditación Completa
                         </h4>
                         <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
-                          {dailyContent.description}
+                          {dailyContent.description || 'Descripción no disponible'}
                           {"\n\n"}Reflexiona profundamente sobre este tema.
                           Tómate tu tiempo para meditar en cada palabra y cómo
                           se aplica a tu vida espiritual.
@@ -423,17 +410,6 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                     </div>
                   )}
 
-                  <button
-                    onClick={() =>
-                      handleTaskToggle(selectedDay.day, "meditationCompleted")
-                    }
-                    className="w-full mt-4 flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-                  >
-                    <CheckCircle className="w-4 h-4 mr-2" />
-                    {selectedDay.tasks.meditationCompleted
-                      ? "Marcar como Incompleta"
-                      : "Marcar como Completada"}
-                  </button>
                 </div>
 
                 {/* Video Section */}
@@ -458,7 +434,7 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                       </div>
                       <div className="mb-4">
                         <h4 className="font-semibold text-gray-900 mb-1">
-                          {dailyContent.video.title}
+                          {dailyContent.video?.title || 'Video de Hoy'}
                         </h4>
                       </div>
                     </div>
@@ -477,31 +453,26 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                           Video Completo
                         </h4>
                         <div className="relative bg-gray-100 rounded-lg aspect-video mb-4 overflow-hidden">
-                          <iframe
-                            width="100%"
-                            height="100%"
-                            src={dailyContent.video.youtubeUrl}
-                            title="YouTube video player"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            className="absolute inset-0 w-full h-full rounded-lg"
-                          ></iframe>
+                          {dailyContent.video?.youtubeUrl ? (
+                            <iframe
+                              width="100%"
+                              height="100%"
+                              src={dailyContent.video.youtubeUrl}
+                              title="YouTube video player"
+                              frameBorder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                              className="absolute inset-0 w-full h-full rounded-lg"
+                            ></iframe>
+                          ) : (
+                            <div className="absolute inset-0 w-full h-full flex items-center justify-center">
+                              <p className="text-gray-500 text-center">Video no disponible</p>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
                   )}
-                  <button
-                    onClick={() =>
-                      handleTaskToggle(selectedDay.day, "videoCompleted")
-                    }
-                    className="w-full mt-4 flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-                  >
-                    <CheckCircle className="w-4 h-4 mr-2" />
-                    {selectedDay.tasks.videoCompleted
-                      ? "Marcar como No Visto"
-                      : "Marcar como Visto"}
-                  </button>
                 </div>
 
                 {/* Rosary Section */}
@@ -514,18 +485,18 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                   </div>
                   <div className="text-center mb-4">
                     <blockquote className="text-gray-700 italic mb-2 leading-relaxed">
-                      "{dailyContent.quote.text}"
+                      "{dailyContent.quote?.text || 'Cita del día'}"
                     </blockquote>
                     <p className="text-sm text-blue-600 font-medium">
-                      - {dailyContent.quote.author}
+                      - {dailyContent.quote?.author || 'Autor'}
                     </p>
                   </div>
                   <div className="bg-white rounded-lg p-4 mb-4">
                     <h4 className="font-semibold text-gray-900 mb-2">
-                      {dailyContent.mysteries}
+                      {dailyContent.mysteries || 'Misterios del Rosario'}
                     </h4>
                     <p className="text-sm text-gray-600 mb-4">
-                      {dailyContent.mysteriesDescription}
+                      {dailyContent.mysteriesDescription || 'Reflexiona sobre estos misterios mientras rezas el Rosario.'}
                     </p>
                     {!showRosaryVideo ? (
                       <button
@@ -547,35 +518,30 @@ const Calendar: React.FC<CalendarProps> = ({ calendarData, onTaskUpdate }) => {
                         </div>
                         <div className="bg-gray-100 rounded-lg p-4">
                           <h5 className="font-semibold text-gray-900 mb-3">
-                            {dailyContent.rosaryVideo.title}
+                            {dailyContent.rosaryVideo?.title || 'Video del Rosario'}
                           </h5>
                           <div className="relative bg-gray-200 rounded-lg aspect-video mb-4 overflow-hidden">
-                            <iframe
-                              width="100%"
-                              height="100%"
-                              src={dailyContent.rosaryVideo.youtubeUrl}
-                              title="YouTube video player"
-                              frameBorder="0"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                              allowFullScreen
-                              className="absolute inset-0 w-full h-full rounded-lg"
-                            ></iframe>
+                            {dailyContent.rosaryVideo?.youtubeUrl ? (
+                              <iframe
+                                width="100%"
+                                height="100%"
+                                src={dailyContent.rosaryVideo.youtubeUrl}
+                                title="YouTube video player"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                className="absolute inset-0 w-full h-full rounded-lg"
+                              ></iframe>
+                            ) : (
+                              <div className="absolute inset-0 w-full h-full flex items-center justify-center">
+                                <p className="text-gray-500 text-center">Video del Rosario no disponible</p>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
                     )}
                   </div>
-                  <button
-                    onClick={() =>
-                      handleTaskToggle(selectedDay.day, "rosaryCompleted")
-                    }
-                    className="w-full flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-                  >
-                    <CheckCircle className="w-4 h-4 mr-2" />
-                    {selectedDay.tasks.rosaryCompleted
-                      ? "Marcar como No Rezado"
-                      : "Marcar como Rezado"}
-                  </button>
                 </div>
                   </>
                 )}
